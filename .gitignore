@@ -1,2 +1,5 @@
+# For hexo data
 db.json
 public/
+.deploy_git/
+
