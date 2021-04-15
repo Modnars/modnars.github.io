@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Modnar">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Modnar">
+    
+    <meta name="keywords" content="Modnar,Blog,Modnar Blog">
+    
+    <meta name="description" content="创想社">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>《薛兆丰经济学讲义》 · Modnar&#39;s Zone</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Modnar&#39;s Zone</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">《薛兆丰经济学讲义》</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Modnar's Zone</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            《薛兆丰经济学讲义》
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Notes">Notes</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.9k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/01/06</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="第一章-稀缺-为何商业是最大的慈善"><a href="#第一章-稀缺-为何商业是最大的慈善" class="headerlink" title="第一章 稀缺 为何商业是最大的慈善"></a>第一章 <font color="red"><em>稀缺</em></font> <font color="blue"><em>为何商业是最大的慈善</em></font></h2><blockquote>
+<p><em><strong>真实世界</strong> 经济学的视角</em></p>
+</blockquote>
+<h3 id="001-战俘营里的经济组织"><a href="#001-战俘营里的经济组织" class="headerlink" title="001 战俘营里的经济组织"></a>001 战俘营里的经济组织</h3><h3 id="002-马粪争夺案"><a href="#002-马粪争夺案" class="headerlink" title="002 马粪争夺案"></a>002 马粪争夺案</h3><h3 id="003-看得见的和看不见的"><a href="#003-看得见的和看不见的" class="headerlink" title="003 看得见的和看不见的"></a>003 看得见的和看不见的</h3><h3 id="004-区分愿望与结果"><a href="#004-区分愿望与结果" class="headerlink" title="004 区分愿望与结果"></a>004 区分愿望与结果</h3><blockquote>
+<p><em><strong>人性观</strong> 人是理性和自私的吗</em></p>
+</blockquote>
+<h3 id="005-不确定性、进化与经济理论"><a href="#005-不确定性、进化与经济理论" class="headerlink" title="005 不确定性、进化与经济理论"></a>005 不确定性、进化与经济理论</h3><h3 id="006-亚当·斯密的人性观"><a href="#006-亚当·斯密的人性观" class="headerlink" title="006 亚当·斯密的人性观"></a>006 亚当·斯密的人性观</h3><h3 id="007-铅笔的故事"><a href="#007-铅笔的故事" class="headerlink" title="007 铅笔的故事"></a>007 铅笔的故事</h3><h3 id="008-商业是最大的慈善"><a href="#008-商业是最大的慈善" class="headerlink" title="008 商业是最大的慈善"></a>008 商业是最大的慈善</h3><blockquote>
+<p><em><strong>区别对待</strong> 选择的标准</em></p>
+</blockquote>
+<h3 id="009-稀缺"><a href="#009-稀缺" class="headerlink" title="009 稀缺"></a>009 稀缺</h3><h3 id="010-选择和歧视"><a href="#010-选择和歧视" class="headerlink" title="010 选择和歧视"></a>010 选择和歧视</h3><h3 id="011-凡歧视必得付代价"><a href="#011-凡歧视必得付代价" class="headerlink" title="011 凡歧视必得付代价"></a>011 凡歧视必得付代价</h3><h3 id="012-歧视的作用和限制歧视的恶果"><a href="#012-歧视的作用和限制歧视的恶果" class="headerlink" title="012 歧视的作用和限制歧视的恶果"></a>012 歧视的作用和限制歧视的恶果</h3><h2 id="第二章-成本-不要只盯着钱"><a href="#第二章-成本-不要只盯着钱" class="headerlink" title="第二章 成本 不要只盯着钱"></a>第二章 <font color="red"><em>成本</em></font> <font color="blue"><em>不要只盯着钱</em></font></h2><blockquote>
+<p><em><strong>选择偏好</strong> 放弃的最大价值</em></p>
+</blockquote>
+<h3 id="013-一句话给成本下定义"><a href="#013-一句话给成本下定义" class="headerlink" title="013 一句话给成本下定义"></a>013 一句话给成本下定义</h3><p>&#160; &#160; &#160; &#160; <strong>“企业家是资源配置的中间人”</strong></p>
+<p>&#160; &#160; &#160; &#160; 其实，所有的企业家都在充当中间人的角色。他在猜有没有消费者愿意为他的经营活动买单。如果猜对了，他就赚钱；如果猜错了，就赔钱。</p>
+<p>&#160; &#160; &#160; &#160; <strong>“成本是放弃了的最大代价”</strong></p>
+<font color="orange">
+&#160; &#160; &#160; &#160; 如果我们拥有了一定量的资源，比如金钱、时间、空间、地理位置等等，我们需要考虑的是如何合理地利用这些资源。实际在使用资源的过程中，不可避免地要放弃资源的其他使用途径，比如对于时间资源来说，我可以用其来自习读书，也可以用其来做兼职。如果我选择了前者，那么前者的成本就是我放弃了的兼职工作带给我的收益；同理，如果选择后者，亦然。
+
+<p>&#160; &#160; &#160; &#160; 因此，对于不同的选择，带来的收益可能是不同的，而其中因为选择而放弃的最大代价，就是“成本”。由此，“简言之，成本就是放弃了的最大代价”。<br></font></p>
+<p>&#160; &#160; &#160; &#160; <strong>“沉没成本不是成本”</strong></p>
+<p>&#160; &#160; &#160; &#160; 我们说，成本是放弃了的最大代价，而如果没有什么可放弃的，也就不存在成本。沉没成本，就是指那些已经发生但不可回收的支出。当我们没办法再收回、没办法再放弃时，就不存在成本。凡是提到成本，我们一定是向前(未来)看，而不是向后(过去)看的。所以，沉没成本不是成本。</p>
+<p>&#160; &#160; &#160; &#160; 对于我们来说，真正难的，不仅在于理解这句话的意思，也在于生活中我们能否当机立断，真的去实践它。</p>
+<h3 id="014-你的成本由别人决定"><a href="#014-你的成本由别人决定" class="headerlink" title="014 你的成本由别人决定"></a>014 你的成本由别人决定</h3><p>&#160; &#160; &#160; &#160; <strong>“负面的感受不是成本”</strong></p>
+<p>&#160; &#160; &#160; &#160; 将负面的感受当作成本，是很多人容易犯的错误。</p>
+<p>&#160; &#160; &#160; &#160; 比如我们要在自家院子里修一个游泳池，修游泳池的过程，有许多负面感受：辛苦、劳累、一段时间的脏乱差等，但这些都不是修游泳池的成本，因为没有放弃什么东西。修了游泳池，这个地方就不能搭帐篷，那个放弃了的帐篷才是我们修游泳池的成本。</p>
+<p>&#160; &#160; &#160; &#160; <strong>“你的成本由别人决定”</strong></p>
+<p>&#160; &#160; &#160; &#160; 假设我家在长安街有一个祖传铺位，专卖茶叶蛋。我的想法是，这个铺位是我家的产权，不用交铺租，因此我经营茶叶蛋的成本几乎为零。但这个想法不对，因为成本是放弃了的最大代价，而不是这个铺位的租金。</p>
+<p>&#160; &#160; &#160; &#160; 坚持用这个铺位来卖茶叶蛋，成本是放弃了的其他可能性，比如出租。我坚持卖茶叶蛋，放弃的就是这个铺位的铺租。铺租是社会上所有其他人共同决定的，是他们的看法决定了长安街上这个位置的铺租值多少钱，所以是社会上其他的人决定了我坚持卖茶叶蛋的成本。</p>
+<p>&#160; &#160; &#160; &#160; 坚持卖茶叶蛋的成本，只跟一个因素有关系，那就是放弃了的最大收入。</p>
+<p>&#160; &#160; &#160; &#160; <strong>“你的职业范围由社会决定”</strong></p>
+<p>&#160; &#160; &#160; &#160; 今天的人喜欢讲“不忘初心”，但为什么不忘初心那么难呢？</p>
+<p>&#160; &#160; &#160; &#160; 因为当你有“初心”的时候，选择的机会可能没那么多，所以比较容易坚持。但随着境遇的变化，机会增加，你要坚持原来的看法就越来越难了，成本就越来越高了，放弃的东西就越来越多了。因此“不忘初心”不是一件容易的事。</p>
+<p>&#160; &#160; &#160; &#160; 其实，你今天能选择的职业，只是一个非常狭隘的范围，这是今天大多数人都认可而存在的职业范围。你在这当中要选择自己兴趣最大、付出成本最低，而且在相当一段长时间里总收入最高的职业。</p>
+<p>&#160; &#160; &#160; &#160; 经济学的看法是：你拥有你的生命，但是你的生命是怎么度过的，你的职业是怎么选择的，很大程度上是由社会上其他人决定的。</p>
+<h3 id="015-别只盯着钱"><a href="#015-别只盯着钱" class="headerlink" title="015 别只盯着钱"></a>015 别只盯着钱</h3><blockquote>
+<p><em><strong>资源的价值</strong> 重新理解盈利与亏损</em></p>
+</blockquote>
+<h3 id="016-从成本角度理解盈利与亏损"><a href="#016-从成本角度理解盈利与亏损" class="headerlink" title="016 从成本角度理解盈利与亏损"></a>016 从成本角度理解盈利与亏损</h3><h3 id="017-最终产品的供需决定原材料的成本"><a href="#017-最终产品的供需决定原材料的成本" class="headerlink" title="017 最终产品的供需决定原材料的成本"></a>017 最终产品的供需决定原材料的成本</h3><h3 id="018-“租”是对资产的付费"><a href="#018-“租”是对资产的付费" class="headerlink" title="018 “租”是对资产的付费"></a>018 “租”是对资产的付费</h3><h3 id="019-寻租——乞丐没有白拿施舍"><a href="#019-寻租——乞丐没有白拿施舍" class="headerlink" title="019 寻租——乞丐没有白拿施舍"></a>019 寻租——乞丐没有白拿施舍</h3><blockquote>
+<p><em><strong>科斯定律</strong> 从社会成本看问题</em></p>
+</blockquote>
+<h3 id="020-社会成本问题"><a href="#020-社会成本问题" class="headerlink" title="020 社会成本问题"></a>020 社会成本问题</h3><h3 id="021-谁用得好就归谁"><a href="#021-谁用得好就归谁" class="headerlink" title="021 谁用得好就归谁"></a>021 谁用得好就归谁</h3><p>&#160; &#160; &#160; &#160; “一项有价值的资源，不管一开始它的产权归谁，最后这项资源都会流动到最善于利用它、能最大化其价值的人手里。这是科斯定律的一个重要含义。而在制度设计中，我们应该尽量让这种资源的流动和分配更方便、更容易，从而提高各项经济资源被重新配置和使用的效率。”</p>
+<h3 id="022-是否要不惜一切代价保护环境"><a href="#022-是否要不惜一切代价保护环境" class="headerlink" title="022 是否要不惜一切代价保护环境"></a>022 是否要不惜一切代价保护环境</h3><blockquote>
+<p><em><strong>交易费用</strong> 平衡的艺术</em></p>
+</blockquote>
+<h3 id="023-有人群就有交易费用"><a href="#023-有人群就有交易费用" class="headerlink" title="023 有人群就有交易费用"></a>023 有人群就有交易费用</h3><h3 id="024-征地的权衡"><a href="#024-征地的权衡" class="headerlink" title="024 征地的权衡"></a>024 征地的权衡</h3><h3 id="025-寻求合作解"><a href="#025-寻求合作解" class="headerlink" title="025 寻求合作解"></a>025 寻求合作解</h3><h2 id="第三章-需求-好东西运到远方去"><a href="#第三章-需求-好东西运到远方去" class="headerlink" title="第三章 需求 好东西运到远方去"></a>第三章 <font color="red"><em>需求</em></font> <font color="blue"><em>好东西运到远方去</em></font></h2><blockquote>
+<p><em><strong>边际革命</strong> 不是越多越好</em></p>
+</blockquote>
+<h3 id="026-个人主义的主观价值论"><a href="#026-个人主义的主观价值论" class="headerlink" title="026 个人主义的主观价值论"></a>026 个人主义的主观价值论</h3><h3 id="027-边际革命"><a href="#027-边际革命" class="headerlink" title="027 边际革命"></a>027 边际革命</h3><blockquote>
+<p><em><strong>需求定律</strong> 关于人性的定律</em></p>
+</blockquote>
+<h3 id="028-需求第一定律"><a href="#028-需求第一定律" class="headerlink" title="028 需求第一定律"></a>028 需求第一定律</h3><h3 id="029-需求第二定律"><a href="#029-需求第二定律" class="headerlink" title="029 需求第二定律"></a>029 需求第二定律</h3><h3 id="030-需求第三定律"><a href="#030-需求第三定律" class="headerlink" title="030 需求第三定律"></a>030 需求第三定律</h3><h2 id="第四章-价格-如何减少竞争的无谓损失"><a href="#第四章-价格-如何减少竞争的无谓损失" class="headerlink" title="第四章 价格 如何减少竞争的无谓损失"></a>第四章 <font color="red"><em>价格</em></font> <font color="blue"><em>如何减少竞争的无谓损失</em></font></h2><blockquote>
+<p><em><strong>资源配置</strong> 如何分饼决定饼做多大</em></p>
+</blockquote>
+<h3 id="031-经济计算问题"><a href="#031-经济计算问题" class="headerlink" title="031 经济计算问题"></a>031 经济计算问题</h3><h3 id="032-知识在社会中的作用"><a href="#032-知识在社会中的作用" class="headerlink" title="032 知识在社会中的作用"></a>032 知识在社会中的作用</h3><h3 id="033-如何分饼决定饼做多大"><a href="#033-如何分饼决定饼做多大" class="headerlink" title="033 如何分饼决定饼做多大"></a>033 如何分饼决定饼做多大</h3><h3 id="034-换个角度看趁人之危发财的行为"><a href="#034-换个角度看趁人之危发财的行为" class="headerlink" title="034 换个角度看趁人之危发财的行为"></a>034 换个角度看趁人之危发财的行为</h3><blockquote>
+<p><em><strong>竞争的逻辑</strong> 社会成本决定规则的优劣</em></p>
+</blockquote>
+<h3 id="035-竞争的规则"><a href="#035-竞争的规则" class="headerlink" title="035 竞争的规则"></a>035 竞争的规则</h3><h3 id="036-各种竞争规则孰优孰劣"><a href="#036-各种竞争规则孰优孰劣" class="headerlink" title="036 各种竞争规则孰优孰劣"></a>036 各种竞争规则孰优孰劣</h3><h3 id="037-何为短缺和过剩"><a href="#037-何为短缺和过剩" class="headerlink" title="037 何为短缺和过剩"></a>037 何为短缺和过剩</h3><blockquote>
+<p><em><strong>价格管制</strong> 人会追求损失最小化</em></p>
+</blockquote>
+<h3 id="038-最省事儿地违反价格管制"><a href="#038-最省事儿地违反价格管制" class="headerlink" title="038 最省事儿地违反价格管制"></a>038 最省事儿地违反价格管制</h3><h3 id="039-春运火车票价还不够高"><a href="#039-春运火车票价还不够高" class="headerlink" title="039 春运火车票价还不够高"></a>039 春运火车票价还不够高</h3><h3 id="040-美国的房租管制"><a href="#040-美国的房租管制" class="headerlink" title="040 美国的房租管制"></a>040 美国的房租管制</h3><h3 id="041-解除价格管制—-果断与沉稳的拿捏"><a href="#041-解除价格管制—-果断与沉稳的拿捏" class="headerlink" title="041 解除价格管制—-果断与沉稳的拿捏"></a>041 解除价格管制—-果断与沉稳的拿捏</h3><h3 id="042-实物补贴和货币补贴的权衡"><a href="#042-实物补贴和货币补贴的权衡" class="headerlink" title="042 实物补贴和货币补贴的权衡"></a>042 实物补贴和货币补贴的权衡</h3><blockquote>
+<p><em><strong>竞争的维度</strong> 没有人可以控制市场因素</em></p>
+</blockquote>
+<h3 id="043-房价上升好不好"><a href="#043-房价上升好不好" class="headerlink" title="043 房价上升好不好"></a>043 房价上升好不好</h3><h3 id="044-廉价保障房更贵"><a href="#044-廉价保障房更贵" class="headerlink" title="044 廉价保障房更贵"></a>044 廉价保障房更贵</h3><h3 id="045-没有使用需求就没有投资需求"><a href="#045-没有使用需求就没有投资需求" class="headerlink" title="045 没有使用需求就没有投资需求"></a>045 没有使用需求就没有投资需求</h3><h2 id="第五章-权利-自由不等于免费"><a href="#第五章-权利-自由不等于免费" class="headerlink" title="第五章 权利 自由不等于免费"></a>第五章 <font color="red"><em>权利</em></font> <font color="blue"><em>自由不等于免费</em></font></h2><blockquote>
+<p><em><strong>资源的占有</strong> 你的权利从哪里来</em></p>
+</blockquote>
+<h3 id="046-权利有别于能力"><a href="#046-权利有别于能力" class="headerlink" title="046 权利有别于能力"></a>046 权利有别于能力</h3><h3 id="047-权利是人赋的而非天赋的"><a href="#047-权利是人赋的而非天赋的" class="headerlink" title="047 权利是人赋的而非天赋的"></a>047 权利是人赋的而非天赋的</h3><h3 id="048-自由不等于免费"><a href="#048-自由不等于免费" class="headerlink" title="048 自由不等于免费"></a>048 自由不等于免费</h3><blockquote>
+<p><em><strong>产权界定</strong> 保护与限制</em></p>
+</blockquote>
+<h3 id="049-产权的兴起"><a href="#049-产权的兴起" class="headerlink" title="049 产权的兴起"></a>049 产权的兴起</h3><h3 id="050-产权：使用权、收益权和转让权"><a href="#050-产权：使用权、收益权和转让权" class="headerlink" title="050 产权：使用权、收益权和转让权"></a>050 产权：使用权、收益权和转让权</h3><h3 id="051-产权保护之一：财产原则"><a href="#051-产权保护之一：财产原则" class="headerlink" title="051 产权保护之一：财产原则"></a>051 产权保护之一：财产原则</h3><h3 id="052-产权保护之二：责任原则"><a href="#052-产权保护之二：责任原则" class="headerlink" title="052 产权保护之二：责任原则"></a>052 产权保护之二：责任原则</h3><h3 id="053-产权保护之三：不可转让原则"><a href="#053-产权保护之三：不可转让原则" class="headerlink" title="053 产权保护之三：不可转让原则"></a>053 产权保护之三：不可转让原则</h3><blockquote>
+<p><em><strong>公共服务</strong> 公用品与私用品</em></p>
+</blockquote>
+<h3 id="054-经济学家论道路拥堵"><a href="#054-经济学家论道路拥堵" class="headerlink" title="054 经济学家论道路拥堵"></a>054 经济学家论道路拥堵</h3><h3 id="055-拥堵费的实践"><a href="#055-拥堵费的实践" class="headerlink" title="055 拥堵费的实践"></a>055 拥堵费的实践</h3><h3 id="056-公用品和私用品"><a href="#056-公用品和私用品" class="headerlink" title="056 公用品和私用品"></a>056 公用品和私用品</h3><h3 id="057-灯塔的故事"><a href="#057-灯塔的故事" class="headerlink" title="057 灯塔的故事"></a>057 灯塔的故事</h3><h2 id="第六章-耐心-想象力决定生产力"><a href="#第六章-耐心-想象力决定生产力" class="headerlink" title="第六章 耐心 想象力决定生产力"></a>第六章 <font color="red"><em>耐心</em></font> <font color="blue"><em>想象力决定生产力</em></font></h2><blockquote>
+<p><em><strong>不确定性</strong> 时间偏好带来的回报</em></p>
+</blockquote>
+<h3 id="058-易耗品与耐用品"><a href="#058-易耗品与耐用品" class="headerlink" title="058 易耗品与耐用品"></a>058 易耗品与耐用品</h3><h3 id="059-不耐产生交易"><a href="#059-不耐产生交易" class="headerlink" title="059 不耐产生交易"></a>059 不耐产生交易</h3><h3 id="060-利率管制及其后果"><a href="#060-利率管制及其后果" class="headerlink" title="060 利率管制及其后果"></a>060 利率管制及其后果</h3><h3 id="061-利率变化支配资本现值"><a href="#061-利率变化支配资本现值" class="headerlink" title="061 利率变化支配资本现值"></a>061 利率变化支配资本现值</h3><blockquote>
+<p><em><strong>有效市场假说</strong> 时间维度上的平衡消费</em></p>
+</blockquote>
+<h3 id="062-投资就是时间上的平衡消费"><a href="#062-投资就是时间上的平衡消费" class="headerlink" title="062 投资就是时间上的平衡消费"></a>062 投资就是时间上的平衡消费</h3><h3 id="063-股价究竟能不能预测"><a href="#063-股价究竟能不能预测" class="headerlink" title="063 股价究竟能不能预测"></a>063 股价究竟能不能预测</h3><h3 id="064-股市到底有没有泡沫"><a href="#064-股市到底有没有泡沫" class="headerlink" title="064 股市到底有没有泡沫"></a>064 股市到底有没有泡沫</h3><h3 id="065-肥猪丸与回报率"><a href="#065-肥猪丸与回报率" class="headerlink" title="065 肥猪丸与回报率"></a>065 肥猪丸与回报率</h3><blockquote>
+<p><em><strong>预测未来</strong> 债券、保险与期货</em></p>
+</blockquote>
+<h3 id="066-未雨绸缪：储蓄还是买保险"><a href="#066-未雨绸缪：储蓄还是买保险" class="headerlink" title="066 未雨绸缪：储蓄还是买保险"></a>066 未雨绸缪：储蓄还是买保险</h3><h3 id="067-保险的运作原理"><a href="#067-保险的运作原理" class="headerlink" title="067 保险的运作原理"></a>067 保险的运作原理</h3><h3 id="068-那些不是保险的保险"><a href="#068-那些不是保险的保险" class="headerlink" title="068 那些不是保险的保险"></a>068 那些不是保险的保险</h3><h3 id="069-当商品不被当做商品"><a href="#069-当商品不被当做商品" class="headerlink" title="069 当商品不被当做商品"></a>069 当商品不被当做商品</h3><h3 id="070-用期货合约来重新分配不可避免的风险"><a href="#070-用期货合约来重新分配不可避免的风险" class="headerlink" title="070 用期货合约来重新分配不可避免的风险"></a>070 用期货合约来重新分配不可避免的风险</h3><h2 id="第七章-供应-好钢用在刀刃上"><a href="#第七章-供应-好钢用在刀刃上" class="headerlink" title="第七章 供应 好钢用在刀刃上"></a>第七章 <font color="red"><em>供应</em></font> <font color="blue"><em>好钢用在刀刃上</em></font></h2><blockquote>
+<p><em><strong>比较优势</strong> 天生我材必有用</em></p>
+</blockquote>
+<h3 id="071-比较优势原理"><a href="#071-比较优势原理" class="headerlink" title="071 比较优势原理"></a>071 比较优势原理</h3><h3 id="072-顺差逆差，孰优孰劣"><a href="#072-顺差逆差，孰优孰劣" class="headerlink" title="072 顺差逆差，孰优孰劣"></a>072 顺差逆差，孰优孰劣</h3><h3 id="073-贸易对等和贸易报复"><a href="#073-贸易对等和贸易报复" class="headerlink" title="073 贸易对等和贸易报复"></a>073 贸易对等和贸易报复</h3><h3 id="074-贸易保护理由辨析"><a href="#074-贸易保护理由辨析" class="headerlink" title="074 贸易保护理由辨析"></a>074 贸易保护理由辨析</h3><blockquote>
+<p><em><strong>价格歧视</strong> 定价和竞争的优势</em></p>
+</blockquote>
+<h3 id="075-受价者和觅价者"><a href="#075-受价者和觅价者" class="headerlink" title="075 受价者和觅价者"></a>075 受价者和觅价者</h3><h3 id="076-价格歧视能给觅价者脱罪"><a href="#076-价格歧视能给觅价者脱罪" class="headerlink" title="076 价格歧视能给觅价者脱罪"></a>076 价格歧视能给觅价者脱罪</h3><h3 id="077-价格歧视的策略"><a href="#077-价格歧视的策略" class="headerlink" title="077 价格歧视的策略"></a>077 价格歧视的策略</h3><h3 id="078-行业竞争程度不看企业个数"><a href="#078-行业竞争程度不看企业个数" class="headerlink" title="078 行业竞争程度不看企业个数"></a>078 行业竞争程度不看企业个数</h3><h2 id="第八章-信息不对称-谁的话语权更大"><a href="#第八章-信息不对称-谁的话语权更大" class="headerlink" title="第八章 信息不对称 谁的话语权更大"></a>第八章 <font color="red"><em>信息不对称</em></font> <font color="blue"><em>谁的话语权更大</em></font></h2><blockquote>
+<p><em><strong>信任的建立</strong> 直面信息不对称</em></p>
+</blockquote>
+<h3 id="079-柠檬市场的故事"><a href="#079-柠檬市场的故事" class="headerlink" title="079 柠檬市场的故事"></a>079 柠檬市场的故事</h3><h3 id="080-何谓优质"><a href="#080-何谓优质" class="headerlink" title="080 何谓优质"></a>080 何谓优质</h3><blockquote>
+<p><em><strong>制度的对策</strong> 缔约自由比自由更重要</em></p>
+</blockquote>
+<h3 id="081-重复交易与第三方背书"><a href="#081-重复交易与第三方背书" class="headerlink" title="081 重复交易与第三方背书"></a>081 重复交易与第三方背书</h3><h3 id="082-担保、延保与共享合同"><a href="#082-担保、延保与共享合同" class="headerlink" title="082 担保、延保与共享合同"></a>082 担保、延保与共享合同</h3><h3 id="083-沉没成本、人质与抵押"><a href="#083-沉没成本、人质与抵押" class="headerlink" title="083 沉没成本、人质与抵押"></a>083 沉没成本、人质与抵押</h3><h3 id="084-广告代言与形象打扮"><a href="#084-广告代言与形象打扮" class="headerlink" title="084 广告代言与形象打扮"></a>084 广告代言与形象打扮</h3><h3 id="085-特许经营合同中的强者和弱者"><a href="#085-特许经营合同中的强者和弱者" class="headerlink" title="085 特许经营合同中的强者和弱者"></a>085 特许经营合同中的强者和弱者</h3><h3 id="086-如何保障食品、药品和化妆品的质量"><a href="#086-如何保障食品、药品和化妆品的质量" class="headerlink" title="086 如何保障食品、药品和化妆品的质量"></a>086 如何保障食品、药品和化妆品的质量</h3><h3 id="087-婚姻经济学"><a href="#087-婚姻经济学" class="headerlink" title="087 婚姻经济学"></a>087 婚姻经济学</h3><blockquote>
+<p><em><strong>责任的分担</strong> 让方法的成本最小</em></p>
+</blockquote>
+<h3 id="088-汉德公式"><a href="#088-汉德公式" class="headerlink" title="088 汉德公式"></a>088 汉德公式</h3><h3 id="089-监管要看边际效应"><a href="#089-监管要看边际效应" class="headerlink" title="089 监管要看边际效应"></a>089 监管要看边际效应</h3><h3 id="090-监管本身也要引入竞争机制"><a href="#090-监管本身也要引入竞争机制" class="headerlink" title="090 监管本身也要引入竞争机制"></a>090 监管本身也要引入竞争机制</h3><h2 id="第九章-合作-为何同工不同酬"><a href="#第九章-合作-为何同工不同酬" class="headerlink" title="第九章 合作 为何同工不同酬"></a>第九章 <font color="red"><em>合作</em></font> <font color="blue"><em>为何同工不同酬</em></font></h2><blockquote>
+<p><em><strong>决策权</strong> 谁来当老板</em></p>
+</blockquote>
+<h3 id="091-企业的团队本质"><a href="#091-企业的团队本质" class="headerlink" title="091 企业的团队本质"></a>091 企业的团队本质</h3><h3 id="092-谁来当老板：资本和劳动力"><a href="#092-谁来当老板：资本和劳动力" class="headerlink" title="092 谁来当老板：资本和劳动力"></a>092 谁来当老板：资本和劳动力</h3><h3 id="093-谁来当老板：专用资源和通用资源"><a href="#093-谁来当老板：专用资源和通用资源" class="headerlink" title="093 谁来当老板：专用资源和通用资源"></a>093 谁来当老板：专用资源和通用资源</h3><h3 id="094-谁来当老板：固定收入和剩余索取"><a href="#094-谁来当老板：固定收入和剩余索取" class="headerlink" title="094 谁来当老板：固定收入和剩余索取"></a>094 谁来当老板：固定收入和剩余索取</h3><blockquote>
+<p><em><strong>收入分配</strong> 政府是否应该劫富济贫</em></p>
+</blockquote>
+<h3 id="095-收入的高低和节奏由什么决定"><a href="#095-收入的高低和节奏由什么决定" class="headerlink" title="095 收入的高低和节奏由什么决定"></a>095 收入的高低和节奏由什么决定</h3><h3 id="096-事与愿违之同工同酬法"><a href="#096-事与愿违之同工同酬法" class="headerlink" title="096 事与愿违之同工同酬法"></a>096 事与愿违之同工同酬法</h3><h3 id="097-事与愿违之最低工资法"><a href="#097-事与愿违之最低工资法" class="headerlink" title="097 事与愿违之最低工资法"></a>097 事与愿违之最低工资法</h3><h3 id="098-基尼系数与收入分配"><a href="#098-基尼系数与收入分配" class="headerlink" title="098 基尼系数与收入分配"></a>098 基尼系数与收入分配</h3><blockquote>
+<p><em><strong>脱贫致富</strong> 最富裕的穷人在今天</em></p>
+</blockquote>
+<h3 id="099-工人违约是否应该成为权利"><a href="#099-工人违约是否应该成为权利" class="headerlink" title="099 工人违约是否应该成为权利"></a>099 工人违约是否应该成为权利</h3><h3 id="100-罢工的性质"><a href="#100-罢工的性质" class="headerlink" title="100 罢工的性质"></a>100 罢工的性质</h3><h3 id="101-工作权利遇到的障碍"><a href="#101-工作权利遇到的障碍" class="headerlink" title="101 工作权利遇到的障碍"></a>101 工作权利遇到的障碍</h3><h3 id="102-最富裕的穷人在今天"><a href="#102-最富裕的穷人在今天" class="headerlink" title="102 最富裕的穷人在今天"></a>102 最富裕的穷人在今天</h3><h2 id="第十章-协调-众人如何彼此影响"><a href="#第十章-协调-众人如何彼此影响" class="headerlink" title="第十章 协调 众人如何彼此影响"></a>第十章 <font color="red"><em>协调</em></font> <font color="blue"><em>众人如何彼此影响</em></font></h2><blockquote>
+<p><em><strong>货币规律</strong> 货币像水又像蜜</em></p>
+</blockquote>
+<h3 id="103-货币的起源"><a href="#103-货币的起源" class="headerlink" title="103 货币的起源"></a>103 货币的起源</h3><h3 id="104-商业银行创造货币"><a href="#104-商业银行创造货币" class="headerlink" title="104 商业银行创造货币"></a>104 商业银行创造货币</h3><h3 id="105-通货膨胀的根源"><a href="#105-通货膨胀的根源" class="headerlink" title="105 通货膨胀的根源"></a>105 通货膨胀的根源</h3><h3 id="106-通货膨胀的过程"><a href="#106-通货膨胀的过程" class="headerlink" title="106 通货膨胀的过程"></a>106 通货膨胀的过程</h3><h3 id="107-通货膨胀与失业"><a href="#107-通货膨胀与失业" class="headerlink" title="107 通货膨胀与失业"></a>107 通货膨胀与失业</h3><blockquote>
+<p><em><strong>经济周期</strong> 聪明人彼此不同意</em></p>
+</blockquote>
+<h3 id="108-奥地利学派看经济周期"><a href="#108-奥地利学派看经济周期" class="headerlink" title="108 奥地利学派看经济周期"></a>108 奥地利学派看经济周期</h3><h3 id="109-凯恩斯主义学派看经济周期"><a href="#109-凯恩斯主义学派看经济周期" class="headerlink" title="109 凯恩斯主义学派看经济周期"></a>109 凯恩斯主义学派看经济周期</h3><h3 id="110-货币主义学派和理性预期学派看经济周期"><a href="#110-货币主义学派和理性预期学派看经济周期" class="headerlink" title="110 货币主义学派和理性预期学派看经济周期"></a>110 货币主义学派和理性预期学派看经济周期</h3><h3 id="111-真实经济周期理论"><a href="#111-真实经济周期理论" class="headerlink" title="111 真实经济周期理论"></a>111 真实经济周期理论</h3><h3 id="112-聪明人为什么会彼此不同意"><a href="#112-聪明人为什么会彼此不同意" class="headerlink" title="112 聪明人为什么会彼此不同意"></a>112 聪明人为什么会彼此不同意</h3><blockquote>
+<p><em><strong>公共选择</strong> 选举未必反映大多数人的意愿</em></p>
+</blockquote>
+<h3 id="113-选举由中间派说了算"><a href="#113-选举由中间派说了算" class="headerlink" title="113 选举由中间派说了算"></a>113 选举由中间派说了算</h3><h3 id="114-阿罗不可能定律"><a href="#114-阿罗不可能定律" class="headerlink" title="114 阿罗不可能定律"></a>114 阿罗不可能定律</h3><h3 id="115-民主为何会产生不良经济政策"><a href="#115-民主为何会产生不良经济政策" class="headerlink" title="115 民主为何会产生不良经济政策"></a>115 民主为何会产生不良经济政策</h3><h3 id="116-关于收入再分配戴雷科特定律"><a href="#116-关于收入再分配戴雷科特定律" class="headerlink" title="116 关于收入再分配戴雷科特定律"></a>116 关于收入再分配戴雷科特定律</h3><h3 id="117-脱贫致富之路知易行难"><a href="#117-脱贫致富之路知易行难" class="headerlink" title="117 脱贫致富之路知易行难"></a>117 脱贫致富之路知易行难</h3><h3 id="118-中国做对了什么"><a href="#118-中国做对了什么" class="headerlink" title="118 中国做对了什么"></a>118 中国做对了什么</h3><h2 id="后记-何为地道的经济学思维"><a href="#后记-何为地道的经济学思维" class="headerlink" title="后记 何为地道的经济学思维"></a><font color="red">后记</font> <font color="blue">何为地道的经济学思维</font></h2>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://www.modnar.me">Modnar</a>
+            <p>原文链接：<a href="http://www.modnar.me/2020/01/06/EconomicsLectureNotes/">http://www.modnar.me/2020/01/06/EconomicsLectureNotes/</a>
+            <p>发表日期：<a href="http://www.modnar.me/2020/01/06/EconomicsLectureNotes/">January 6th 2020, 11:27:06 am</a>
+            <p>更新日期：<a href="http://www.modnar.me/2020/01/06/EconomicsLectureNotes/">May 19th 2020, 4:45:54 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/01/15/SwiftNotes/" title= "SwiftNotes">
+                    <div class="nextTitle">SwiftNotes</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/01/05/K-R/" title= "《C语言程序设计》">
+                    <div class="prevTitle">《C语言程序设计》</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "pe7wsIA9m9XgXdFxl3m10G4P-gzGzoHsz",
+        appKey: "xqXwNGKorhdUAX6pB0crG38l",
+        placeholder: "ヾﾉ≧∀≦)o欢迎评论!",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:modnar@foxmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Modnars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//weibo.com/u/5963363224" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//www.douban.com/people/164219269/" class="iconfont-archer douban" target="_blank" title=douban></a>
+            
+        
+    
+        
+            
+                <a href="//www.facebook.com/yaobin.chen.96" class="iconfont-archer facebook" target="_blank" title=facebook></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//www.linkedin.com/in/耀斌-谌-a1664b128/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span></span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-稀缺-为何商业是最大的慈善"><span class="toc-number">1.</span> <span class="toc-text">第一章 稀缺 为何商业是最大的慈善</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#001-战俘营里的经济组织"><span class="toc-number">1.1.</span> <span class="toc-text">001 战俘营里的经济组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#002-马粪争夺案"><span class="toc-number">1.2.</span> <span class="toc-text">002 马粪争夺案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#003-看得见的和看不见的"><span class="toc-number">1.3.</span> <span class="toc-text">003 看得见的和看不见的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#004-区分愿望与结果"><span class="toc-number">1.4.</span> <span class="toc-text">004 区分愿望与结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#005-不确定性、进化与经济理论"><span class="toc-number">1.5.</span> <span class="toc-text">005 不确定性、进化与经济理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#006-亚当·斯密的人性观"><span class="toc-number">1.6.</span> <span class="toc-text">006 亚当·斯密的人性观</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#007-铅笔的故事"><span class="toc-number">1.7.</span> <span class="toc-text">007 铅笔的故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#008-商业是最大的慈善"><span class="toc-number">1.8.</span> <span class="toc-text">008 商业是最大的慈善</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#009-稀缺"><span class="toc-number">1.9.</span> <span class="toc-text">009 稀缺</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#010-选择和歧视"><span class="toc-number">1.10.</span> <span class="toc-text">010 选择和歧视</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#011-凡歧视必得付代价"><span class="toc-number">1.11.</span> <span class="toc-text">011 凡歧视必得付代价</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#012-歧视的作用和限制歧视的恶果"><span class="toc-number">1.12.</span> <span class="toc-text">012 歧视的作用和限制歧视的恶果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-成本-不要只盯着钱"><span class="toc-number">2.</span> <span class="toc-text">第二章 成本 不要只盯着钱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#013-一句话给成本下定义"><span class="toc-number">2.1.</span> <span class="toc-text">013 一句话给成本下定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#014-你的成本由别人决定"><span class="toc-number">2.2.</span> <span class="toc-text">014 你的成本由别人决定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#015-别只盯着钱"><span class="toc-number">2.3.</span> <span class="toc-text">015 别只盯着钱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#016-从成本角度理解盈利与亏损"><span class="toc-number">2.4.</span> <span class="toc-text">016 从成本角度理解盈利与亏损</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#017-最终产品的供需决定原材料的成本"><span class="toc-number">2.5.</span> <span class="toc-text">017 最终产品的供需决定原材料的成本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#018-“租”是对资产的付费"><span class="toc-number">2.6.</span> <span class="toc-text">018 “租”是对资产的付费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#019-寻租——乞丐没有白拿施舍"><span class="toc-number">2.7.</span> <span class="toc-text">019 寻租——乞丐没有白拿施舍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#020-社会成本问题"><span class="toc-number">2.8.</span> <span class="toc-text">020 社会成本问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#021-谁用得好就归谁"><span class="toc-number">2.9.</span> <span class="toc-text">021 谁用得好就归谁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#022-是否要不惜一切代价保护环境"><span class="toc-number">2.10.</span> <span class="toc-text">022 是否要不惜一切代价保护环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#023-有人群就有交易费用"><span class="toc-number">2.11.</span> <span class="toc-text">023 有人群就有交易费用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#024-征地的权衡"><span class="toc-number">2.12.</span> <span class="toc-text">024 征地的权衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#025-寻求合作解"><span class="toc-number">2.13.</span> <span class="toc-text">025 寻求合作解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-需求-好东西运到远方去"><span class="toc-number">3.</span> <span class="toc-text">第三章 需求 好东西运到远方去</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#026-个人主义的主观价值论"><span class="toc-number">3.1.</span> <span class="toc-text">026 个人主义的主观价值论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#027-边际革命"><span class="toc-number">3.2.</span> <span class="toc-text">027 边际革命</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#028-需求第一定律"><span class="toc-number">3.3.</span> <span class="toc-text">028 需求第一定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#029-需求第二定律"><span class="toc-number">3.4.</span> <span class="toc-text">029 需求第二定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#030-需求第三定律"><span class="toc-number">3.5.</span> <span class="toc-text">030 需求第三定律</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-价格-如何减少竞争的无谓损失"><span class="toc-number">4.</span> <span class="toc-text">第四章 价格 如何减少竞争的无谓损失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#031-经济计算问题"><span class="toc-number">4.1.</span> <span class="toc-text">031 经济计算问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#032-知识在社会中的作用"><span class="toc-number">4.2.</span> <span class="toc-text">032 知识在社会中的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#033-如何分饼决定饼做多大"><span class="toc-number">4.3.</span> <span class="toc-text">033 如何分饼决定饼做多大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#034-换个角度看趁人之危发财的行为"><span class="toc-number">4.4.</span> <span class="toc-text">034 换个角度看趁人之危发财的行为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#035-竞争的规则"><span class="toc-number">4.5.</span> <span class="toc-text">035 竞争的规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#036-各种竞争规则孰优孰劣"><span class="toc-number">4.6.</span> <span class="toc-text">036 各种竞争规则孰优孰劣</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#037-何为短缺和过剩"><span class="toc-number">4.7.</span> <span class="toc-text">037 何为短缺和过剩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#038-最省事儿地违反价格管制"><span class="toc-number">4.8.</span> <span class="toc-text">038 最省事儿地违反价格管制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#039-春运火车票价还不够高"><span class="toc-number">4.9.</span> <span class="toc-text">039 春运火车票价还不够高</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#040-美国的房租管制"><span class="toc-number">4.10.</span> <span class="toc-text">040 美国的房租管制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#041-解除价格管制—-果断与沉稳的拿捏"><span class="toc-number">4.11.</span> <span class="toc-text">041 解除价格管制—-果断与沉稳的拿捏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#042-实物补贴和货币补贴的权衡"><span class="toc-number">4.12.</span> <span class="toc-text">042 实物补贴和货币补贴的权衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#043-房价上升好不好"><span class="toc-number">4.13.</span> <span class="toc-text">043 房价上升好不好</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#044-廉价保障房更贵"><span class="toc-number">4.14.</span> <span class="toc-text">044 廉价保障房更贵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#045-没有使用需求就没有投资需求"><span class="toc-number">4.15.</span> <span class="toc-text">045 没有使用需求就没有投资需求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章-权利-自由不等于免费"><span class="toc-number">5.</span> <span class="toc-text">第五章 权利 自由不等于免费</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#046-权利有别于能力"><span class="toc-number">5.1.</span> <span class="toc-text">046 权利有别于能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#047-权利是人赋的而非天赋的"><span class="toc-number">5.2.</span> <span class="toc-text">047 权利是人赋的而非天赋的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#048-自由不等于免费"><span class="toc-number">5.3.</span> <span class="toc-text">048 自由不等于免费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#049-产权的兴起"><span class="toc-number">5.4.</span> <span class="toc-text">049 产权的兴起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#050-产权：使用权、收益权和转让权"><span class="toc-number">5.5.</span> <span class="toc-text">050 产权：使用权、收益权和转让权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#051-产权保护之一：财产原则"><span class="toc-number">5.6.</span> <span class="toc-text">051 产权保护之一：财产原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#052-产权保护之二：责任原则"><span class="toc-number">5.7.</span> <span class="toc-text">052 产权保护之二：责任原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#053-产权保护之三：不可转让原则"><span class="toc-number">5.8.</span> <span class="toc-text">053 产权保护之三：不可转让原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#054-经济学家论道路拥堵"><span class="toc-number">5.9.</span> <span class="toc-text">054 经济学家论道路拥堵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#055-拥堵费的实践"><span class="toc-number">5.10.</span> <span class="toc-text">055 拥堵费的实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#056-公用品和私用品"><span class="toc-number">5.11.</span> <span class="toc-text">056 公用品和私用品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#057-灯塔的故事"><span class="toc-number">5.12.</span> <span class="toc-text">057 灯塔的故事</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-耐心-想象力决定生产力"><span class="toc-number">6.</span> <span class="toc-text">第六章 耐心 想象力决定生产力</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#058-易耗品与耐用品"><span class="toc-number">6.1.</span> <span class="toc-text">058 易耗品与耐用品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#059-不耐产生交易"><span class="toc-number">6.2.</span> <span class="toc-text">059 不耐产生交易</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#060-利率管制及其后果"><span class="toc-number">6.3.</span> <span class="toc-text">060 利率管制及其后果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#061-利率变化支配资本现值"><span class="toc-number">6.4.</span> <span class="toc-text">061 利率变化支配资本现值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#062-投资就是时间上的平衡消费"><span class="toc-number">6.5.</span> <span class="toc-text">062 投资就是时间上的平衡消费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#063-股价究竟能不能预测"><span class="toc-number">6.6.</span> <span class="toc-text">063 股价究竟能不能预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#064-股市到底有没有泡沫"><span class="toc-number">6.7.</span> <span class="toc-text">064 股市到底有没有泡沫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#065-肥猪丸与回报率"><span class="toc-number">6.8.</span> <span class="toc-text">065 肥猪丸与回报率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#066-未雨绸缪：储蓄还是买保险"><span class="toc-number">6.9.</span> <span class="toc-text">066 未雨绸缪：储蓄还是买保险</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#067-保险的运作原理"><span class="toc-number">6.10.</span> <span class="toc-text">067 保险的运作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#068-那些不是保险的保险"><span class="toc-number">6.11.</span> <span class="toc-text">068 那些不是保险的保险</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#069-当商品不被当做商品"><span class="toc-number">6.12.</span> <span class="toc-text">069 当商品不被当做商品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#070-用期货合约来重新分配不可避免的风险"><span class="toc-number">6.13.</span> <span class="toc-text">070 用期货合约来重新分配不可避免的风险</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章-供应-好钢用在刀刃上"><span class="toc-number">7.</span> <span class="toc-text">第七章 供应 好钢用在刀刃上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#071-比较优势原理"><span class="toc-number">7.1.</span> <span class="toc-text">071 比较优势原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#072-顺差逆差，孰优孰劣"><span class="toc-number">7.2.</span> <span class="toc-text">072 顺差逆差，孰优孰劣</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#073-贸易对等和贸易报复"><span class="toc-number">7.3.</span> <span class="toc-text">073 贸易对等和贸易报复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#074-贸易保护理由辨析"><span class="toc-number">7.4.</span> <span class="toc-text">074 贸易保护理由辨析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#075-受价者和觅价者"><span class="toc-number">7.5.</span> <span class="toc-text">075 受价者和觅价者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#076-价格歧视能给觅价者脱罪"><span class="toc-number">7.6.</span> <span class="toc-text">076 价格歧视能给觅价者脱罪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#077-价格歧视的策略"><span class="toc-number">7.7.</span> <span class="toc-text">077 价格歧视的策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#078-行业竞争程度不看企业个数"><span class="toc-number">7.8.</span> <span class="toc-text">078 行业竞争程度不看企业个数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-信息不对称-谁的话语权更大"><span class="toc-number">8.</span> <span class="toc-text">第八章 信息不对称 谁的话语权更大</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#079-柠檬市场的故事"><span class="toc-number">8.1.</span> <span class="toc-text">079 柠檬市场的故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#080-何谓优质"><span class="toc-number">8.2.</span> <span class="toc-text">080 何谓优质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#081-重复交易与第三方背书"><span class="toc-number">8.3.</span> <span class="toc-text">081 重复交易与第三方背书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#082-担保、延保与共享合同"><span class="toc-number">8.4.</span> <span class="toc-text">082 担保、延保与共享合同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#083-沉没成本、人质与抵押"><span class="toc-number">8.5.</span> <span class="toc-text">083 沉没成本、人质与抵押</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#084-广告代言与形象打扮"><span class="toc-number">8.6.</span> <span class="toc-text">084 广告代言与形象打扮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#085-特许经营合同中的强者和弱者"><span class="toc-number">8.7.</span> <span class="toc-text">085 特许经营合同中的强者和弱者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#086-如何保障食品、药品和化妆品的质量"><span class="toc-number">8.8.</span> <span class="toc-text">086 如何保障食品、药品和化妆品的质量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#087-婚姻经济学"><span class="toc-number">8.9.</span> <span class="toc-text">087 婚姻经济学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#088-汉德公式"><span class="toc-number">8.10.</span> <span class="toc-text">088 汉德公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#089-监管要看边际效应"><span class="toc-number">8.11.</span> <span class="toc-text">089 监管要看边际效应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#090-监管本身也要引入竞争机制"><span class="toc-number">8.12.</span> <span class="toc-text">090 监管本身也要引入竞争机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第九章-合作-为何同工不同酬"><span class="toc-number">9.</span> <span class="toc-text">第九章 合作 为何同工不同酬</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#091-企业的团队本质"><span class="toc-number">9.1.</span> <span class="toc-text">091 企业的团队本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#092-谁来当老板：资本和劳动力"><span class="toc-number">9.2.</span> <span class="toc-text">092 谁来当老板：资本和劳动力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#093-谁来当老板：专用资源和通用资源"><span class="toc-number">9.3.</span> <span class="toc-text">093 谁来当老板：专用资源和通用资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#094-谁来当老板：固定收入和剩余索取"><span class="toc-number">9.4.</span> <span class="toc-text">094 谁来当老板：固定收入和剩余索取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#095-收入的高低和节奏由什么决定"><span class="toc-number">9.5.</span> <span class="toc-text">095 收入的高低和节奏由什么决定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#096-事与愿违之同工同酬法"><span class="toc-number">9.6.</span> <span class="toc-text">096 事与愿违之同工同酬法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#097-事与愿违之最低工资法"><span class="toc-number">9.7.</span> <span class="toc-text">097 事与愿违之最低工资法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#098-基尼系数与收入分配"><span class="toc-number">9.8.</span> <span class="toc-text">098 基尼系数与收入分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#099-工人违约是否应该成为权利"><span class="toc-number">9.9.</span> <span class="toc-text">099 工人违约是否应该成为权利</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#100-罢工的性质"><span class="toc-number">9.10.</span> <span class="toc-text">100 罢工的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#101-工作权利遇到的障碍"><span class="toc-number">9.11.</span> <span class="toc-text">101 工作权利遇到的障碍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#102-最富裕的穷人在今天"><span class="toc-number">9.12.</span> <span class="toc-text">102 最富裕的穷人在今天</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十章-协调-众人如何彼此影响"><span class="toc-number">10.</span> <span class="toc-text">第十章 协调 众人如何彼此影响</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#103-货币的起源"><span class="toc-number">10.1.</span> <span class="toc-text">103 货币的起源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#104-商业银行创造货币"><span class="toc-number">10.2.</span> <span class="toc-text">104 商业银行创造货币</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#105-通货膨胀的根源"><span class="toc-number">10.3.</span> <span class="toc-text">105 通货膨胀的根源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#106-通货膨胀的过程"><span class="toc-number">10.4.</span> <span class="toc-text">106 通货膨胀的过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#107-通货膨胀与失业"><span class="toc-number">10.5.</span> <span class="toc-text">107 通货膨胀与失业</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#108-奥地利学派看经济周期"><span class="toc-number">10.6.</span> <span class="toc-text">108 奥地利学派看经济周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#109-凯恩斯主义学派看经济周期"><span class="toc-number">10.7.</span> <span class="toc-text">109 凯恩斯主义学派看经济周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#110-货币主义学派和理性预期学派看经济周期"><span class="toc-number">10.8.</span> <span class="toc-text">110 货币主义学派和理性预期学派看经济周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#111-真实经济周期理论"><span class="toc-number">10.9.</span> <span class="toc-text">111 真实经济周期理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#112-聪明人为什么会彼此不同意"><span class="toc-number">10.10.</span> <span class="toc-text">112 聪明人为什么会彼此不同意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#113-选举由中间派说了算"><span class="toc-number">10.11.</span> <span class="toc-text">113 选举由中间派说了算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#114-阿罗不可能定律"><span class="toc-number">10.12.</span> <span class="toc-text">114 阿罗不可能定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#115-民主为何会产生不良经济政策"><span class="toc-number">10.13.</span> <span class="toc-text">115 民主为何会产生不良经济政策</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#116-关于收入再分配戴雷科特定律"><span class="toc-number">10.14.</span> <span class="toc-text">116 关于收入再分配戴雷科特定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#117-脱贫致富之路知易行难"><span class="toc-number">10.15.</span> <span class="toc-text">117 脱贫致富之路知易行难</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#118-中国做对了什么"><span class="toc-number">10.16.</span> <span class="toc-text">118 中国做对了什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记-何为地道的经济学思维"><span class="toc-number">11.</span> <span class="toc-text">后记 何为地道的经济学思维</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 21
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/1MonthAtShenZhen/" >在深圳的第一个月</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/2020/07/07/ShockingDiscovery/" >惊天大发现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/2020/06/24/APUE/" >《UNIX环境高级编程》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href= "/2020/06/07/MyHIT/" >我的哈工大</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/AboutChoice/" >关于“选择”</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2020/05/24/XiaoMeiwen/" >小美文</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/2020/05/20/2020520/" >2020520</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2020/04/20/ChatServer/" >聊天室服务器设计与实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/HTMLPopWindow/" >HTML实现自定义弹窗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/JsAndPyTransData/" >Js与Python数据传输</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/bits-stdc-h/" >macOS下的bits/stdc++.h</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/YourName/" >你的名字，天气之子</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2020/02/15/GitHub-or-Gitee/" >GitHub or Gitee</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/2020/02/03/PythonNotes/" >PythonNotes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/2020/01/15/SwiftNotes/" >SwiftNotes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/06</span><a class="archive-post-title" href= "/2020/01/06/EconomicsLectureNotes/" >《薛兆丰经济学讲义》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/K-R/" >《C语言程序设计》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Fahrenheit451/" >《华氏451》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/BreakThroughKanto/" >《闯关东》</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2019/12/27/FirstBlog/" >写在第一页</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2019/12/27/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Essay"><span class="iconfont-archer">&#xe606;</span>Essay</span>
+    
+        <span class="sidebar-tag-name" data-tags="Unix"><span class="iconfont-archer">&#xe606;</span>Unix</span>
+    
+        <span class="sidebar-tag-name" data-tags="Notes"><span class="iconfont-archer">&#xe606;</span>Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="TVseries"><span class="iconfont-archer">&#xe606;</span>TVseries</span>
+    
+        <span class="sidebar-tag-name" data-tags="Blog"><span class="iconfont-archer">&#xe606;</span>Blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="C/C++"><span class="iconfont-archer">&#xe606;</span>C/C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Book"><span class="iconfont-archer">&#xe606;</span>Book</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reproduction"><span class="iconfont-archer">&#xe606;</span>Reproduction</span>
+    
+        <span class="sidebar-tag-name" data-tags="Movie"><span class="iconfont-archer">&#xe606;</span>Movie</span>
+    
+        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Presonal"><span class="iconfont-archer">&#xe60a;</span>Presonal</span>
+    
+        <span class="sidebar-category-name" data-categories="Personal"><span class="iconfont-archer">&#xe60a;</span>Personal</span>
+    
+        <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+    
+        <span class="sidebar-category-name" data-categories="Review"><span class="iconfont-archer">&#xe60a;</span>Review</span>
+    
+        <span class="sidebar-category-name" data-categories="Technology"><span class="iconfont-archer">&#xe60a;</span>Technology</span>
+    
+        <span class="sidebar-category-name" data-categories="Economics"><span class="iconfont-archer">&#xe60a;</span>Economics</span>
+    
+        <span class="sidebar-category-name" data-categories="Literature"><span class="iconfont-archer">&#xe60a;</span>Literature</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Modnar"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
