@@ -2,8 +2,8 @@
 title: 聊天室服务器设计与实现
 date: 2020-04-20 20:54:21
 abstract: 通过Linux/Unix系统调用以实现简易高性能服务器程序。
-tags: ["Blog", "C/C++", "Linux"]
-categories: Technology
+tags: ["C/C++", "Linux"]
+categories: "Blog"
 ---
 
 ## 问题来源

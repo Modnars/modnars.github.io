@@ -2,8 +2,8 @@
 title: 我的哈工大
 date: 2020-06-07 21:45:41
 abstract: Loading... 96%... 100% Done.
-tags: ['Essay']
-categories: Personal
+tags: ["Idea"]
+categories: "Diary"
 ---
 
 # _**The 100th Anniversary of HIT**_

@@ -2,8 +2,8 @@
 title: macOS下的bits/stdc++.h
 date: 2020-03-03 19:02:55
 abstract: 如果你对这个头文件名称比较陌生，便不必点开。
-tags: [C/C++, macOS]
-categories: Programming
+tags: ["C/C++", "macOS"]
+categories: "Blog"
 ---
 
 &#160; &#160; &#160; &#160; 如题，macOS默认是没有\<bits/stdc++.h\>这个头文件的。原因的话，应该是Mac默认使用的编译器是clang，而非GNU提供的gcc、g++。

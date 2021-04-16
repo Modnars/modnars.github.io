@@ -2,8 +2,8 @@
 title: 《C语言程序设计》
 date: 2020-01-05 11:16:41
 abstract: 《K&R》练习题思考与答案
-tags: [C/C++, Notes]
-categories: Programming
+tags: ["C/C++"]
+categories: "Notes"
 ---
 
 ## Prac 1-1

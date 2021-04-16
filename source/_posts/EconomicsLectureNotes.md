@@ -2,8 +2,8 @@
 title: 《薛兆丰经济学讲义》
 date: 2020-01-06 11:27:06
 abstract: 《薛兆丰经济学讲义》笔记
-tags: Notes
-categories: Economics
+tags: ["Economics"]
+categories: "Notes"
 ---
 
 ## 第一章 <font color="red">_稀缺_</font> <font color="blue">_为何商业是最大的慈善_</font>

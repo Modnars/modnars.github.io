@@ -2,8 +2,8 @@
 title: SwiftNotes
 date: 2020-01-15 21:29:12
 abstract: "The Learning Notes of \"Swift Programming Language\"."
-tags: ["Swift", "Notes"]
-categories: "Programming"
+tags: ["Swift"]
+categories: "Notes"
 ---
 
 # A Swift Tour

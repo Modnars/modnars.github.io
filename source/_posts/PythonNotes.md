@@ -2,8 +2,8 @@
 title: PythonNotes
 date: 2020-02-03 09:29:30
 abstract: The Learning Notes from "Python-100-Days".
-tags: ["Python", "Notes"]
-categories: "Programming"
+tags: ["Python"]
+categories: "Notes"
 ---
 
 ## 字符串和常用数据结构

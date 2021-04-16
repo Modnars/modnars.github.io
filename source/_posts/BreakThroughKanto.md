@@ -2,8 +2,8 @@
 title: 《闯关东》
 date: 2020-01-03 21:12:01
 abstract: 从一个家庭的悲欢离合看近代中国的社会变迁。
-tags: TVseries
-categories: Review
+tags: ["Idea"]
+categories: "Reviews"
 ---
 
 &#160; &#160; &#160; &#160; 这是一个家庭的故事，也是近代中国的社会生活缩影。

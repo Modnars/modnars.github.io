@@ -2,8 +2,8 @@
 title: Js与Python数据传输
 date: 2020-03-15 23:01:26
 abstract: Web前端与Python后端实现数据传输的一种解决方案
-tags: ["JavaScript", "Python", "Blog"]
-categories: Technology
+tags: ["JavaScript", "Python"]
+categories: "Blog"
 ---
 
 ## 问题背景

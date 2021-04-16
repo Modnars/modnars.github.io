@@ -2,8 +2,8 @@
 title: GitHub or Gitee
 date: 2020-02-15 20:49:06
 abstract: 在一些情况下，选择GitHub还是Gitee?
-tags: Blog
-categories: Technology
+tags: ["GitHub", "Gitee"]
+categories: "Blog"
 ---
 
 &#160; &#160; &#160; &#160; 如题，在中国，代码托管选择**GitHub**还是**Gitee**呢？

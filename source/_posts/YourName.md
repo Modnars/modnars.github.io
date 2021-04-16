@@ -2,8 +2,8 @@
 title: 你的名字，天气之子
 date: 2020-03-03 17:57:12
 abstract: 从东京的“相遇”，到东京的“沦陷”
-tags: Movie
-categories: Review
+tags: ["Movie"]
+categories: "Reviews"
 ---
 
 ## <font color="blue">_**你的名字**_</font>

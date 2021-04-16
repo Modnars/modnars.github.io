@@ -2,8 +2,8 @@
 title: 《华氏451》
 date: 2020-01-03 22:01:27
 abstract: 没有书籍的世界，究竟有多么令人着迷。
-tags: Book
-categories: Review
+tags: ["Book"]
+categories: "Reviews"
 ---
 
 ## 概述

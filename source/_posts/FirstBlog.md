@@ -1,9 +1,9 @@
 ---
 title: 写在第一页
 date: 2019-12-27 21:58:11
-tags: Essay
 abstract: Modnar's Diary.
-categories: Personal
+tags: ["Idea"]
+categories: "Diary"
 ---
 
 ### 2019.12.27

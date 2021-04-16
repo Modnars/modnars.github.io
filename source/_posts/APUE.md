@@ -2,8 +2,8 @@
 title: 《UNIX环境高级编程》
 date: 2020-06-24 12:30:39
 abstract: ☆ ☆ ☆ ☆ ☆ | 阅读学习中
-tags: ["Unix", "Notes"]
-categories: Programming
+tags: ["Unix"]
+categories: "Notes"
 ---
 
 # _Ch1. UNIX基础知识_

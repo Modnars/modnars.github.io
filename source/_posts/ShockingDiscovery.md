@@ -2,8 +2,8 @@
 title: 惊天大发现
 date: 2020-07-07 20:30:12
 abstract: Modnar的惊天发现！浮夸警告！
-tags: Essay
-categories: Personal
+tags: ["Idea"]
+categories: "Diary"
 ---
 
 ## 2020.08.09
