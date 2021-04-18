@@ -26,7 +26,7 @@ categories: "Blog"
 
 ![GitHub Repo Settings](Pic3.png)
 
-&#160; &#160; &#160; &#160; 然后，可以看到 _Your site is published at http://<username>.github.io_ 这一行说明(上面截图中这里的文字说明有些问题)，就是说在未绑定到新域名时，你可以通过这个链接地址来访问自己的 _**GitHub Pages**_ 。这时，就需要获取一下它的 **IP地址** 。在本地使用 **ping** 来得到它的IP:
+&#160; &#160; &#160; &#160; 然后，可以看到 _Your site is published at http://\<username\>.github.io_ 这一行说明(上面截图中这里的文字说明有些问题)，就是说在未绑定到新域名时，你可以通过这个链接地址来访问自己的 _**GitHub Pages**_ 。这时，就需要获取一下它的 **IP地址** 。在本地使用 **ping** 来得到它的IP:
 
 ```bash
 $ ping https://<username>.github.io/
