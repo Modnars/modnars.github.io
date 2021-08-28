@@ -29,9 +29,9 @@ social:
   others: 
   rss: 
 # friends
-friends:
-  RocketeerLi: //rocketeerli.github.io/
-  YangYijie: //lawindrain.com/
+# friends:
+#   RocketeerLi: //rocketeerli.github.io/
+#   YangYijie: //lawindrain.com/
 about:
   enable: true
   image: '/intro/about-bg.jpg'
