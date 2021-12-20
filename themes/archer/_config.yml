@@ -10,13 +10,13 @@ social:
   email: modnar@foxmail.com
   github: //github.com/Modnars
   # wechat and qq should be a path of qr-code image
-  wechat: 
+  wechat: /avatar/modtalk.qr.jpg
   qq: 
   telegram: 
   weibo: //weibo.com/u/5963363224
   zhihu: 
-  douban: //www.douban.com/people/164219269/
-  facebook: //www.facebook.com/yaobin.chen.96
+  douban: # //www.douban.com/people/164219269/
+  facebook: # //www.facebook.com/yaobin.chen.96
   twitter: 
   instagram: 
   stack-overflow: 
