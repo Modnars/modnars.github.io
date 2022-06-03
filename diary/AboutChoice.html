@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Modnar">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Modnar">
+    
+    <meta name="keywords" content="Modnar,Blog,Modnar Blog">
+    
+    <meta name="description" content="创想社">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>关于“选择” · Modnar&#39;s Zone</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <a class="home-link" href=/>Modnar's Zone</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>&#160; &#160; &#160; &#160; 其实，我想写一篇名为“AboutChoice”的文章很久了。最初是因为春招时不可避免地需要拒一些Offer，后来，却阴差阳错地需要面对“读研还是工作”这个世纪难题。你永远不知道生活中一些事情的突然出现意味着什么，但每每反思，都有新的不同理解。</p>
+<h2 id="自身情况"><a href="#自身情况" class="headerlink" title="自身情况"></a>自身情况</h2><p>&#160; &#160; &#160; &#160; 去年，可能更多地是担心自己找不到什么好工作，因而打算读研深造一下自己。当时的那种选择，更多地像是“麻木”状态下做出的。当时的感觉就是毫无灵魂，厉害的同学都去名企工作了，而大部分同学更多地选择了读研深造。到我自己，则更有一种“高不成低不就”的感觉，无奈，选择考研。</p>
+<p>&#160; &#160; &#160; &#160; 于是，在2019年的三月开始，除了正常的课程之外，我还要准备考研的知识内容。那时的自己每天都是极其压抑的，总感觉一个担子一直压在自己身上，直直望去，却是更大的压力。那时，有一门课程，是《编译原理》。我非常喜欢这门课程，但校方给这门课程的课时安排并不多。老师留下的实验内容是分三周实现一个编译器前端，那时的我兴奋极了。但考虑到考研的担子，却又感觉好压抑。后来，干脆就豁出去了。我不是一个“并发性能”很好的人，我喜欢专心地做一件事。于是，那几周就一直研究如何实现编译器前端。那几周，暂时放下了其他的事情，认真地参考学习前人的实现，最终完成了这样的一个项目。那段时间，充实得令人兴奋。</p>
+<p>&#160; &#160; &#160; &#160; 但是，课程结束之后，还是回到考研的队伍之中。在去年的暑假时，很多一起学习的同学都得到了保研的名额。那时候，应该是我大学期间的至暗时刻了吧。我常常在傍晚夏热渐散时在操场一圈圈地走，正如找不到方向一般，思索自己的人生出路。那种落差让我常常打不起精神，更多地，应该是一种不甘与后悔吧。但没有办法，生活就是这样。然后，继续准备考研。实际上，我是在考前100天左右才算是投入状态，所谓的投入状态就是按照别人的样子，开始刷题复习。那时我最困惑的问题就是，读研的意义究竟是什么？</p>
+<p>&#160; &#160; &#160; &#160; 我不是一个喜欢科研的人，对于不感兴趣的内容，更是很难全心研究学习。我真的适合读研吗？我的一个同学，考研的目的，只是拿到“学位”。我自认为这样的理由不足以说服我投入两年左右的时间。后来，因为时间有限，就强迫自己不去思考这样的问题了。但我这个人就是这样，总是想要一个原因，所以那时的我，往往很难从内心做到平静。</p>
+<p>&#160; &#160; &#160; &#160; 后来，因为秋季的一些课程还是需要一些精力，加上毕业设计的开题事项等等，分散了很多读研时间。我是一个“慢热型选手”，因而复习的成果可想而知。我依旧还记得，考研的第一天结束之后，我和我的妈妈打电话，说自己考得太烂了，更多的是，怀疑自己还适合读书吗？很遗憾，我和妈妈说，我不想继续读书了。这是发自内心的感觉，是我在考英语时一种疲倦无力感冲上之后，心里余下的感受。妈妈听了很平静，“以后不后悔吗？”，“不后悔。”，“那好，早点睡吧。”。那时，却有种很宽慰的感觉，但这种感觉并不耽误我第二天完成了自我感觉十几年来数学考得最烂的一张试卷。</p>
+<p>&#160; &#160; &#160; &#160; 终于，时间挨到了二月。初试成绩公布，329分。按照窝工往年360分的计科录取线，这成绩无疑两字：凉凉。那时的自己更像是一种被逼上梁山的感觉，决心找工作了。当然，那时最难受的，还是自我怀疑，我的实力… 真的就只是这样了吧？</p>
+<p>&#160; &#160; &#160; &#160; 受到疫情的影响，学校的复试线却一直没有公布。当然，这样的初试成绩，可能已经不够支付我后续复试流程的门票了。后来，春招结束之后，拿到了自己想要的Offer，却被通知通过考研初试线了。很遗憾，春招的时候，更多的是一种不用读书的轻松感，每每遇到面试官问我：暂时不打算继续读研深造了吗？我的回答总是：我希望通过工作，将我本科期间所学的知识，从一种扁平化的状态变为一种立体感的应用。</p>
+<p>&#160; &#160; &#160; &#160; 可能我心智不太成熟？拿到了复试的机会，没有什么激动的感觉，却感觉很沉重。我不想读研，但读研机会难得。思考了几天，我和老师说我在犹豫是否要继续读研。老师却很意外，“这是多少人渴求的机会，读研是你们这个年纪最有性价比的选择了！你却还在犹豫？”。后来，我和老师单独聊了聊这件事情，老师还是劝我多考虑考虑，毕竟机会难得。于是，在这种犹豫之下，秉持着机会不能轻易放弃的原则，我还是参加了复试。</p>
+<p>&#160; &#160; &#160; &#160; 说实话，当时的我并没有过多地准备复试。只是翻看了几页《集合论与图论》的PPT。果然，不感兴趣的知识，再看起来还是乏味。我想说的，并不是说这门课程内容乏味，只是过于呆板机械地应付考试去学习“书中重点知识”，这种感觉我不喜欢。对于刚刚结束春招的我来说，这种感觉格外强烈。对于春招来说，面试时问到的内容，更多的是实际应用时需要的知识，我觉得这样的知识更需要个人的理解才可以回答得完美；但应试问题，我是真的打不起精神。</p>
+<p>&#160; &#160; &#160; &#160; 庆幸的是，因为疫情的原因，取消了原有的机试，考察形式均通过面试来进行。凭借着自己出色的面试经验，我和老师们聊了聊自己对专业知识的理解。最终，凭借复试超车，拿到了哈尔滨工业大学（深圳）计算机学院总分第五名的总成绩。拿到了学校给我的最理想Offer。同时，在准备复试阶段，自己还参加了一个提前联系的导师的面试，以七选二的比例入选该实验室。这样的努力结果，让我欣喜与沉醉，更给了自己很大的心理负担。</p>
+<p>&#160; &#160; &#160; &#160; 我说过，我不是一个很想要读书的人。所以面对这样的选择，自然是迟疑的。一边是我想要的工作岗位，但拿到的是普通<strong>Offer</strong>；一边是难得的深造机会，且拿到的是<strong>Super Offer</strong>。身边的家人，都很希望我能继续深造，因为“工作机会有的是”。但我却一直没能说服自己，还是在考量犹豫。</p>
+<h2 id="我的选择"><a href="#我的选择" class="headerlink" title="我的选择"></a>我的选择</h2><p>&#160; &#160; &#160; &#160; 从客观事实上来说，读研给我的好处应当是更多的。但致命的是，我不喜欢老师提供给我的大方向，并且这个方向就国内环境来说，存在着比较严重的内卷问题。同时，自己的兴趣在于工程开发，而非算法研究。对计算机专业来说，想要走工程开发的道路，往往更好的选择是通过工作来提升自己。</p>
+<p>&#160; &#160; &#160; &#160; 以上，就是我核心选择工作的原因。我深刻地明白我放弃了很多读研带来的好处，但我却更愿意接受工作给我的发展提升。做出这个选择之后，我立即和我的朋友们说明了一下，并和导师表达了自己的意愿。好在，导师没有多说什么，让我心理宽慰了不少。</p>
+<p>&#160; &#160; &#160; &#160; 其实，在纠结的过程中，我的妈妈和我说过，“你不用过多地顾虑别人的想法，你是凭借着自己的本事拿到了这两个选择，选择最适合自己的就好。”。这也是让我放下很多心理负担的重要原因。是的，这是我的人生，我会对自己的选择负责，我会认真对待自己的道路。</p>
+<p>&#160; &#160; &#160; &#160; 现在的我，依然不愿意和我身边的人聊自己的选择，因为总会收到他们的诧异和惋惜。或许是自己的实力，总是令人怀疑？果然以后需要放肆一点，不能继续低调了！于是，我慢慢熟悉了朋友们的惋惜，尽管还是会略有些失落。后来，让我印象深刻的，果然还是和自己欣赏喜欢的姑娘聊天:</p>
+<p><img src="ChatRecord.png" alt="ChatRecord"></p>
+<p>&#160; &#160; &#160; &#160; 写到这里，我发现自己似乎并不是真正地在面对两个选择犹豫，而是在等一个重要的人，对我的选择表示肯定。还好，我身边有我的亲人、朋友在支持着我，我需要的，还是我久违的自信吧！</p>
+<h2 id="一些想对读者说的话"><a href="#一些想对读者说的话" class="headerlink" title="一些想对读者说的话"></a>一些想对读者说的话</h2><p>&#160; &#160; &#160; &#160; 未来，面对选择，可能还是会迟疑，但相信自己一定不会对做出的选择后悔。我会一直记得我的leader对我说的那句话：<strong>有选择是好事</strong>。每个人都有自己的评断，选择最适合自己的就好。“</p>
+<p>&#160; &#160; &#160; &#160; 我当时考虑的东西还是蛮多的，包括各个可能的角度吧。这总显得有些“磨叽”、“矫情”，但可能自己在思考的时候，心里就已经有了答案。我甚至和老师聊到一些很深入的问题，老师问我：“如果未来你的孩子也在迟疑是否读研，你缺少这一段研究生经历，该怎么给他建议呢？”。我被这个问题深深困住了，因为我的爸爸妈妈，对于此刻我的选择正是这样的无能为力（我并不是说我的父母没什么能力，相反，我明白他们已经把所能给我的全盘捧到我的面前。他们是我最坚实的后盾，是我永远的支持者）。所以，如果你也面对这样的困惑，可以试着从不同的角度去考量一下。如今，对于这个问题，我的答案是去做自己想做的事情，相信未来我也会鼓励自己的孩子，去坚持你想要坚持的。</p>
+<p>&#160; &#160; &#160; &#160; 总而言之，可能很多选择就是这样。无论你选择哪个，未来都很可能会后悔，那既然如此，为什么不放开心胸，勇敢选择一个自己想要的呢？我的朋友和我聊过一段很有意思的对话：</p>
+<blockquote>
+<p>&#160; &#160; &#160; &#160; <em>既然我们都明白，两条路，都是为了自己的成长发展。而成长发展，往往过程是痛苦的。既然都要面对痛苦，为什么不选择一条自己感兴趣的，硬磕下去呢？</em></p>
+</blockquote>
+<p>&#160; &#160; &#160; &#160; 如果有一天，自己真的对这个选择后悔，那恐怕那时的自己不是弱、就是贪。这二者，都是此刻的自己，非常不想面对的。愿未来，给我们最好的答复。</p>
+<p>&#160; &#160; &#160; &#160; 最后，希望自己可以把渴望已久的独自生活变得丰富多彩，去探索更多的可能。最重要的，是不矫情吧，哈哈哈哈哈哈哈哈哈哈哈哈哈哈！</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://www.modnar.me">Modnar</a>
+            <p>原文链接：<a href="http://www.modnar.me/diary/AboutChoice.html">http://www.modnar.me/diary/AboutChoice.html</a>
+            <p>发表日期：<a href="http://www.modnar.me/diary/AboutChoice.html">June 6th 2020, 9:49:07 pm</a>
+            <p>更新日期：<a href="http://www.modnar.me/diary/AboutChoice.html">May 22nd 2022, 6:48:15 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:modnar@foxmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Modnars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/avatar/modtalk.qr.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//weibo.com/u/5963363224" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//www.linkedin.com/in/耀斌-谌-a1664b128/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span></span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 13
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2021/10/04/InstallSwiftFormat/" >安装Swift-Format工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2021/04/17/SshConfigNoSecret/" >SSH免密登录配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/CombineDomainToGithubPages/" >为GitHub Pages绑定域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/ManageHexoWithGit/" >使用Git来管理Hexo文章</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2020/05/24/XiaoMeiwen/" >小美文</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2020/04/20/ChatServer/" >聊天室服务器设计与实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/HTMLPopWindow/" >HTML实现自定义弹窗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/JsAndPyTransData/" >Js与Python数据传输</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/bits-stdc-h/" >macOS下的bits/stdc++.h</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2020/02/15/GitHub-or-Gitee/" >GitHub or Gitee</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/2020/01/15/SwiftNotes/" >SwiftNotes</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2019/12/27/FirstBlog/" >写在第一页</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2019/12/27/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="C/C++"><span class="iconfont-archer">&#xe606;</span>C/C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Domain"><span class="iconfont-archer">&#xe606;</span>Domain</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="GitHub Pages"><span class="iconfont-archer">&#xe606;</span>GitHub Pages</span>
+    
+        <span class="sidebar-tag-name" data-tags="GitHub"><span class="iconfont-archer">&#xe606;</span>GitHub</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gitee"><span class="iconfont-archer">&#xe606;</span>Gitee</span>
+    
+        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
+    
+        <span class="sidebar-tag-name" data-tags="centOS"><span class="iconfont-archer">&#xe606;</span>centOS</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Modnar"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
+</html>
+
+
