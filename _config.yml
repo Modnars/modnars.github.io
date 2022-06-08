@@ -9,7 +9,7 @@ description: '创想社'
 keywords:
 author: Modnar
 language: zh
-timezone: 'Asia/Beijing'
+timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
