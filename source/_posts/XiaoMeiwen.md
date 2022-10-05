@@ -2,8 +2,10 @@
 title: 小美文
 date: 2020-05-24 18:44:41
 abstract: 花盛开一句，夜漫过一篇
-tags: ["Idea"]
-categories: "Notes"
+tags:
+    - "Idea"
+categories:
+    - "Notes"
 ---
 
 # <center>小美文</center>
