@@ -403,39 +403,39 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>&#160; &#160; &#160; &#160; 如题，在中国，代码托管选择<strong>GitHub</strong>还是<strong>Gitee</strong>呢？</p>
-<p>&#160; &#160; &#160; &#160; 假期在家，发现GitHub的访问速度越来越慢了。甚至，我的iPad直接无法访问GitHub了… 这就导致我iPad的两个GitHub代码阅读APP直接崩溃…</p>
-<p>&#160; &#160; &#160; &#160; 再就是使用电脑上的Google Chrome和Safari访问巨慢无比的GitHub，图片常常因为获取超时而加载不出来。当然，尝试修改hosts文件来加速DNS解析也无果。</p>
-<p>&#160; &#160; &#160; &#160; 终于，我打算试试Gitee(码云)了…</p>
+        <p>&#160; &#160; &#160; &#160; 如题，在中国，代码托管选择 <strong>GitHub</strong> 还是 <strong>Gitee</strong> 呢？</p>
+<p>&#160; &#160; &#160; &#160; 假期在家，发现GitHub的访问速度越来越慢了。甚至，我的 iPad 直接无法访问 GitHub 了… 这就导致我 iPad 的两个 GitHub 代码阅读APP直接崩溃…</p>
+<p>&#160; &#160; &#160; &#160; 再就是使用电脑上的 Google Chrome 和 Safari 访问巨慢无比的 GitHub，图片常常因为获取超时而加载不出来。当然，尝试修改 hosts 文件来加速 DNS 解析也无果。</p>
+<p>&#160; &#160; &#160; &#160; 终于，我打算试试 Gitee（码云）了…</p>
 <p>&#160; &#160; &#160; &#160; 之前听说过这个，说这是国内做得不错的代码托管工具。天时地利，当然，盘它！</p>
-<p>&#160; &#160; &#160; &#160; 然后就注册了一个，直接用的<strong>Modnar</strong>作为用户名(看到这儿还不去Follow+Star?! 疯狂暗示)，后来发现这和我的本地git配置不同名。于是Gitee上的每个repo的贡献者，都是2人… 小问题，忽略(强迫症的我握紧了拳)。</p>
-<p>&#160; &#160; &#160; &#160; 下面说重点，很自然地，想用它来解决国内访问GitHub Pages慢的问题。于是，用它提供的Pages，部署一下即可。</p>
-<p>&#160; &#160; &#160; &#160; 在Hexo的_config.yml文件内，修改成如下内容：</p>
+<p>&#160; &#160; &#160; &#160; 然后就注册了一个，直接用的 <strong>Modnar</strong> 作为用户名（看到这儿还不去 Follow+Star?! 疯狂暗示），后来发现这和我的本地 git 配置不同名。于是 Gitee 上的每个 repo 的贡献者，都是 2 人… 小问题，忽略（强迫症的我握紧了拳）。</p>
+<p>&#160; &#160; &#160; &#160; 下面说重点，很自然地，想用它来解决国内访问 GitHub Pages 慢的问题。于是，用它提供的 Pages，部署一下即可。</p>
+<p>&#160; &#160; &#160; &#160; 在 Hexo 的 _config.yml 文件内，修改成如下内容：</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Deployment</span></span><br><span class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/deployment.html</span></span></span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> </span><br><span class="line"><span class="symbol">    github:</span> git@github.com:Modnars/modnars.github.io.git,master</span><br><span class="line"><span class="symbol">    gitee:</span> git@gitee.com:modnar/modnar.git</span><br><span class="line">    <span class="meta"># branch: master</span></span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 即在保持原有的<u>github.io</u>库不变的情况下，添加Gitee提供的库链接。图中是通过ssh来传输，如果采用https，则拷贝仓库https链接即可，不过这种情况下可能在每次部署至远程的时候，需要在终端输入用户名与密码。当然也可以免去手动输入的烦恼，配置里修改链接格式即可。</p>
-<p>&#160; &#160; &#160; &#160; 需要说一下的是，Gitee可以为每个repo提供Pages服务，当然，如果想用<u>username.gitee.io</u>作为域名访问的话，你的这个repo名必须直接是你的username，否则该repo得到的Pages链接会是<u>username.gitee.io/pagesname/</u>的格式，这就引出了下面的问题：</p>
+<p>&#160; &#160; &#160; &#160; 即在保持原有的 <u>github.io</u> 库不变的情况下，添加 Gitee 提供的库链接。图中是通过 ssh 来传输，如果采用 https，则拷贝仓库 https 链接即可，不过这种情况下可能在每次部署至远程的时候，需要在终端输入用户名与密码。当然也可以免去手动输入的烦恼，配置里修改链接格式即可。</p>
+<p>&#160; &#160; &#160; &#160; 需要说一下的是，Gitee 可以为每个 repo 提供 Pages 服务，当然，如果想用 <u>username.gitee.io</u> 作为域名访问的话，你的这个 repo 名必须直接是你的 username，否则该 repo 得到的 Pages 链接会是 <u>username.gitee.io/pagesname/</u> 的格式，这就引出了下面的问题：</p>
 <blockquote>
-<p>如何将待部署的Pages资源部署到<u>username.gitee.io/pagesname/</u>的链接上？</p>
+<p>如何将待部署的 Pages 资源部署到 <u>username.gitee.io/pagesname/</u> 的链接上？</p>
 </blockquote>
-<p>&#160; &#160; &#160; &#160; 修改Hexo的_config.yml文件内url字段：</p>
+<p>&#160; &#160; &#160; &#160; 修改 Hexo 的 _config.yml 文件内 url 字段：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &#39;http:&#x2F;&#x2F;yoursite.com&#x2F;child&#39; and root as &#39;&#x2F;child&#x2F;&#39;</span><br><span class="line">url: http:&#x2F;&#x2F;www.modnar.me</span><br><span class="line">root: &#x2F;</span><br><span class="line">permalink: :year&#x2F;:month&#x2F;:day&#x2F;:title&#x2F;</span><br><span class="line">permalink_defaults:</span><br><span class="line">pretty_urls:</span><br><span class="line">  trailing_index: true # Set to false to remove trailing &#39;index.html&#39; from permalinks</span><br><span class="line">  trailing_html: true # Set to false to remove trailing &#39;.html&#39; from permalinks</span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 将其中的root字段修改为pagesname/即可。</p>
-<p>&#160; &#160; &#160; &#160; 回到我的情况，我是直接将同一个hexo项目(即完全相同的页面资源)配置到两个Pages上，所以这里应当保持其subdirectory一致，GitHub Pages是/，自然使用上面的username.gitee.io选择是最好的选择。</p>
-<p>&#160; &#160; &#160; &#160; 到这里，就可以每次使用Hexo来生成页面并一键部署了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建Post</span></span><br><span class="line">$ hexo new <span class="string">"post"</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 生成页面</span></span><br><span class="line">$ hexo g </span><br><span class="line"><span class="comment"># 部署页面至本地，选项-p XXXX来修改端口</span></span><br><span class="line">$ hexo s</span><br><span class="line"><span class="comment"># 部署页面至远程(GitHub and Gitee)</span></span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>&#160; &#160; &#160; &#160; 将其中的 root 字段修改为 pagesname/ 即可。</p>
+<p>&#160; &#160; &#160; &#160; 回到我的情况，我是直接将同一个 hexo 项目（即完全相同的页面资源）配置到两个 Pages 上，所以这里应当保持其 subdirectory 一致，GitHub Pages 是 /，自然使用上面的 username.gitee.io 选择是最好的选择。</p>
+<p>&#160; &#160; &#160; &#160; 到这里，就可以每次使用 Hexo 来生成页面并一键部署了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建 Post</span></span><br><span class="line">$ hexo new <span class="string">"post"</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 生成页面</span></span><br><span class="line">$ hexo g </span><br><span class="line"><span class="comment"># 部署页面至本地，选项 -p XXXX 来修改端口</span></span><br><span class="line">$ hexo s</span><br><span class="line"><span class="comment"># 部署页面至远程（GitHub and Gitee）</span></span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 这样，GitHub和Gitee就可以同时拥有最新鲜的网页内容了。</p>
-<p>&#160; &#160; &#160; &#160; 比如，你可以访问<a href="http://www.modnar.me/" target="_blank" rel="noopener">http://www.modnar.me/</a>或<a href="https://modnars.github.io/" target="_blank" rel="noopener">https://modnars.github.io/</a>或<a href="https://modnar.gitee.io/" target="_blank" rel="noopener">https://modnar.gitee.io/</a>，我的me域名目前是绑定到GitHub提供的Pages上，你可以试一下这几个链接的访问速度。国内的话，应该是Gitee提供的Pages访问速度最快。</p>
-<p>&#160; &#160; &#160; &#160; 至此，总结来说，本博客说明了GitHub和Gitee的一些区别，并给出了针对一些问题/目的的我的解决方案，若有更好的解决途径，欢迎评论分享！</p>
+<p>&#160; &#160; &#160; &#160; 这样，GitHub 和 Gitee 就可以同时拥有最新鲜的网页内容了。</p>
+<p>&#160; &#160; &#160; &#160; 比如，你可以访问 <a href="http://www.modnar.zone/">http://www.modnar.zone/</a> 或 <a href="https://modnars.github.io/" target="_blank" rel="noopener">https://modnars.github.io/</a> 或 <a href="https://modnar.gitee.io/" target="_blank" rel="noopener">https://modnar.gitee.io/</a>，我的 zone 域名目前是绑定到 GitHub 提供的 Pages 上，你可以试一下这几个链接的访问速度。国内的话，应该是 Gitee 提供的 Pages 访问速度最快。</p>
+<p>&#160; &#160; &#160; &#160; 至此，总结来说，本博客说明了 GitHub 和 Gitee 的一些区别，并给出了针对一些问题 / 目的的我的解决方案，若有更好的解决途径，欢迎评论分享！</p>
 <p>&#160; &#160; &#160; &#160; 留个问题：</p>
 <blockquote>
-<p>能否部署同一个Hexo项目到不同的URL而不仅仅是git仓库？具体一些，能否找到一种解决途径，不修改上述的<u>username.gitee.io/pages/</u>情况而达到同时部署多个URL？</p>
+<p>能否部署同一个 Hexo 项目到不同的 URL 而不仅仅是 git 仓库？具体一些，能否找到一种解决途径，不修改上述的 <u>username.gitee.io/pages/</u> 情况而达到同时部署多个URL？</p>
 </blockquote>
-<h2 id="后来"><a href="#后来" class="headerlink" title="后来"></a><em>后来</em></h2><p>&#160; &#160; &#160; &#160; 我发现Gitee提供的Pages服务有点鸡肋，具体表现在每次push之后，要进入Pages服务点击更新来重新部署，不如GitHub提供的自动部署服务好。</p>
-<p>&#160; &#160; &#160; &#160; 其次，Gitee提供的Pages似乎对移动端浏览器支持得不好？我在上次修改本博客后，在电脑端浏览器分享了本博客，后来发现移动端Gitee Pages打不开😶</p>
-<p>&#160; &#160; &#160; &#160; 最后… 今天GitHub浏览速度快了不少…</p>
+<h2 id="后来"><a href="#后来" class="headerlink" title="后来"></a><em>后来</em></h2><p>&#160; &#160; &#160; &#160; 我发现 Gitee 提供的 Pages 服务有点鸡肋，具体表现在每次 push 之后，要进入 Pages 服务点击更新来重新部署，不如 GitHub 提供的自动部署服务好。</p>
+<p>&#160; &#160; &#160; &#160; 其次，Gitee 提供的 Pages 似乎对移动端浏览器支持得不好？我在上次修改本博客后，在电脑端浏览器分享了本博客，后来发现移动端 Gitee Pages 打不开 😶</p>
+<p>&#160; &#160; &#160; &#160; 最后… 今天 GitHub 浏览速度快了不少…</p>
 
     </article>
     <!-- license  -->
@@ -444,7 +444,7 @@ height:50vh;
             <p>原文作者：<a href="http://www.modnar.zone">Modnar</a>
             <p>原文链接：<a href="http://www.modnar.zone/2020/02/15/GitHub-or-Gitee/">http://www.modnar.zone/2020/02/15/GitHub-or-Gitee/</a>
             <p>发表日期：<a href="http://www.modnar.zone/2020/02/15/GitHub-or-Gitee/">February 15th 2020, 8:49:06 pm</a>
-            <p>更新日期：<a href="http://www.modnar.zone/2020/02/15/GitHub-or-Gitee/">June 8th 2022, 1:22:05 pm</a>
+            <p>更新日期：<a href="http://www.modnar.zone/2020/02/15/GitHub-or-Gitee/">October 5th 2022, 3:10:21 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -453,8 +453,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/03/03/bits-stdc-h/" title= "macOS下的bits/stdc++.h">
-                    <div class="nextTitle">macOS下的bits/stdc++.h</div>
+                <a href= "/2020/03/03/bits-stdc-h/" title= "macOS 下的 bits/stdc++.h">
+                    <div class="nextTitle">macOS 下的 bits/stdc++.h</div>
                 </a>
             
         </li>
@@ -740,6 +740,8 @@ top:50vh;
     
     
     
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 13
@@ -758,22 +760,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2021/10/04/InstallSwiftFormat/" >安装SwiftFormat工具</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2021/10/04/InstallSwiftFormat/" >安装 SwiftFormat 工具</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2021/04/17/SshConfigNoSecret/" >SSH免密登录配置</a>
+            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2021/04/17/SshConfigNoSecret/" >SSH 免密登录配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/CombineDomainToGithubPages/" >为GitHub Pages绑定域名</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/ManageHexoWithGit/" >使用Git来管理Hexo文章</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
         </li>
     
     
@@ -797,17 +799,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/HTMLPopWindow/" >HTML实现自定义弹窗</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/HTMLPopWindow/" >HTML 实现自定义弹窗</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/JsAndPyTransData/" >Js与Python数据传输</a>
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/JsAndPyTransData/" >Js 与 Python 数据传输</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/bits-stdc-h/" >macOS下的bits/stdc++.h</a>
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/bits-stdc-h/" >macOS 下的 bits/stdc++.h</a>
         </li>
     
     
@@ -854,11 +856,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="GitHub Pages"><span class="iconfont-archer">&#xe606;</span>GitHub Pages</span>
     
-        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
-    
         <span class="sidebar-tag-name" data-tags="GitHub"><span class="iconfont-archer">&#xe606;</span>GitHub</span>
     
         <span class="sidebar-tag-name" data-tags="Gitee"><span class="iconfont-archer">&#xe606;</span>Gitee</span>
+    
+        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
     
         <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
     
@@ -870,9 +872,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
     
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
-    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
         <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
     
@@ -910,6 +912,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
     
         <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
     

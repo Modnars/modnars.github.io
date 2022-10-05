@@ -22,7 +22,7 @@
     <meta name="description" content="创想社">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>安装SwiftFormat工具 · Modnar&#39;s Zone</title>
+    <title>安装 SwiftFormat 工具 · Modnar&#39;s Zone</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Modnar&#39;s Zone</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">安装SwiftFormat工具</a>
+                <a href="#" class="post-name">安装 SwiftFormat 工具</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            安装SwiftFormat工具
+            安装 SwiftFormat 工具
             <!-- 404 -->
             
         </h1>
@@ -274,7 +274,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">559</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">561</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -403,25 +403,25 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>&#160; &#160; &#160; &#160; 安装<code>swift-format</code>工具很简单，按照<code>apple</code>在 <strong>GitHub</strong> 开源的仓库说明进行构建安装即可。</p>
+        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>&#160; &#160; &#160; &#160; 安装 <code>swift-format</code> 工具很简单，按照 <code>apple</code> 在 <strong>GitHub</strong> 开源的仓库说明进行构建安装即可。</p>
 <blockquote>
 <p><em>GitHub Address</em>: <a href="https://github.com/apple/swift-format" target="_blank" rel="noopener"><em>github.com/apple/swift-format</em></a></p>
 </blockquote>
-<p>&#160; &#160; &#160; &#160; 这里构建安装的是release版本: <code>0.50600.0</code>。</p>
+<p>&#160; &#160; &#160; &#160; 这里构建安装的是 release 版本: <code>0.50600.0</code>。</p>
 <h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">VERSION=0.50600.0  <span class="comment"># replace this with the version you need</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/apple/swift-format.git</span><br><span class="line"><span class="built_in">cd</span> swift-format</span><br><span class="line">git checkout <span class="string">"tags/<span class="variable">$VERSION</span>"</span></span><br><span class="line">swift build -c release</span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 构建完成之后，会自动切到git的相应release分支。并且在<code>.build</code>目录下有相应构建生成的文件，其中就包含我们需要的<code>swift-format</code>二进制文件。</p>
+<p>&#160; &#160; &#160; &#160; 构建完成之后，会自动切到 git 的相应 release 分支。并且在 <code>.build</code> 目录下有相应构建生成的文件，其中就包含我们需要的 <code>swift-format</code> 二进制文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ swift build --show-bin-path</span><br><span class="line">/Users/modnarshen/Repo/swift-format/.build/x86_64-apple-macosx/debug</span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 将<code>swift-format</code>二进制复制到<code>/usr/local/bin</code>下，即可全局使用了。</p>
+<p>&#160; &#160; &#160; &#160; 将 <code>swift-format</code> 二进制复制到 <code>/usr/local/bin</code> 下，即可全局使用了。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp .build/x86_64-apple-macosx/release/swift-format /usr/<span class="built_in">local</span>/bin/</span><br><span class="line">$ swift-format -v</span><br><span class="line">0.50600.0</span><br></pre></td></tr></table></figure>
 
 <h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ swift-format -h</span><br><span class="line">OVERVIEW: Format or lint Swift <span class="built_in">source</span> code</span><br><span class="line"></span><br><span class="line">USAGE: swift-format [--version] &lt;subcommand&gt;</span><br><span class="line"></span><br><span class="line">OPTIONS:</span><br><span class="line">  -v, --version           Print the version and <span class="built_in">exit</span></span><br><span class="line">  -h, --<span class="built_in">help</span>              Show <span class="built_in">help</span> information.</span><br><span class="line"></span><br><span class="line">SUBCOMMANDS:</span><br><span class="line">  dump-configuration      Dump the default configuration <span class="keyword">in</span> JSON format to standard output</span><br><span class="line">  format (default)        Format Swift <span class="built_in">source</span> code</span><br><span class="line">  lint                    Diagnose style issues <span class="keyword">in</span> Swift <span class="built_in">source</span> code</span><br><span class="line"></span><br><span class="line">  See <span class="string">'swift-format help &lt;subcommand&gt;'</span> <span class="keyword">for</span> detailed <span class="built_in">help</span>.</span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 主要用到的流程大概就是先用<code>dump-configuration</code>来获取当前<code>swift-format</code>默认转换的格式，该命令会将格式文本默认输出到<code>standard output</code>，重定向到文件就好。</p>
+<p>&#160; &#160; &#160; &#160; 主要用到的流程大概就是先用 <code>dump-configuration</code> 来获取当前 <code>swift-format</code> 默认转换的格式，该命令会将格式文本默认输出到 <code>standard output</code>，重定向到文件就好。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ swift-format dump-configuration &gt; current-format.json</span><br></pre></td></tr></table></figure>
 
-<p>&#160; &#160; &#160; &#160; 然后在这个<code>.json</code>文件的基础上，按需修改一下就好。为了便于<code>swift-format</code>工具搜索，可以将它重命名为<code>.swift-format</code>，其工作模式和<code>clang-format</code>类似：</p>
+<p>&#160; &#160; &#160; &#160; 然后在这个 <code>.json</code> 文件的基础上，按需修改一下就好。为了便于 <code>swift-format</code> 工具搜索，可以将它重命名为 <code>.swift-format</code>，其工作模式和 <code>clang-format</code> 类似：</p>
 <blockquote>
 <p><a href="https://github.com/apple/swift-format#configuring-the-command-line-tool" target="_blank" rel="noopener">https://github.com/apple/swift-format#configuring-the-command-line-tool</a></p>
 <p>&#160; &#160; &#160; &#160; For any source file being checked or formatted, <code>swift-format</code> looks for a JSON-formatted file named <code>.swift-format</code> in the same directory. If one is found, then that file is loaded to determine the tool’s configuration. If the file is not found, then it looks in the parent directory, and so on.</p>
@@ -429,19 +429,19 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mv current-format.json .swift-format</span><br></pre></td></tr></table></figure>
 
 <h3 id="几个常用的使用方式"><a href="#几个常用的使用方式" class="headerlink" title="几个常用的使用方式"></a>几个常用的使用方式</h3><ul>
-<li>格式化<code>main.swift</code>文件。</li>
+<li>格式化 <code>main.swift</code> 文件。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ swift-format -i main.swift</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>格式化当前目录下所有<code>.swift</code>文件：</li>
+<li>格式化当前目录下所有 <code>.swift</code> 文件：</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ swift-format -i -r .</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <p><a href="https://exyte.com/blog/how-to-start-working-with-swift-format" target="_blank" rel="noopener">https://exyte.com/blog/how-to-start-working-with-swift-format</a></p>
 </blockquote>
-<p>在<code>swift-format 0.50600.0</code>版本下，文章中关于<code>dump-configuration</code>命令部分已经不再适用，相应部分可以参考上述内容。</p>
+<p>在 <code>swift-format 0.50600.0</code> 版本下，文章中关于 <code>dump-configuration</code> 命令部分已经不再适用，相应部分可以参考上述内容。</p>
 
     </article>
     <!-- license  -->
@@ -450,7 +450,7 @@ height:50vh;
             <p>原文作者：<a href="http://www.modnar.zone">Modnar</a>
             <p>原文链接：<a href="http://www.modnar.zone/2021/10/04/InstallSwiftFormat/">http://www.modnar.zone/2021/10/04/InstallSwiftFormat/</a>
             <p>发表日期：<a href="http://www.modnar.zone/2021/10/04/InstallSwiftFormat/">October 4th 2021, 11:13:16 pm</a>
-            <p>更新日期：<a href="http://www.modnar.zone/2021/10/04/InstallSwiftFormat/">June 8th 2022, 1:22:05 pm</a>
+            <p>更新日期：<a href="http://www.modnar.zone/2021/10/04/InstallSwiftFormat/">October 5th 2022, 3:10:21 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -462,8 +462,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2021/04/17/SshConfigNoSecret/" title= "SSH免密登录配置">
-                    <div class="prevTitle">SSH免密登录配置</div>
+                <a href= "/2021/04/17/SshConfigNoSecret/" title= "SSH 免密登录配置">
+                    <div class="prevTitle">SSH 免密登录配置</div>
                 </a>
             
         </li>
@@ -741,6 +741,8 @@ top:50vh;
     
     
     
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 13
@@ -759,22 +761,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2021/10/04/InstallSwiftFormat/" >安装SwiftFormat工具</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2021/10/04/InstallSwiftFormat/" >安装 SwiftFormat 工具</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2021/04/17/SshConfigNoSecret/" >SSH免密登录配置</a>
+            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2021/04/17/SshConfigNoSecret/" >SSH 免密登录配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/CombineDomainToGithubPages/" >为GitHub Pages绑定域名</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/ManageHexoWithGit/" >使用Git来管理Hexo文章</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/15/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
         </li>
     
     
@@ -798,17 +800,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/HTMLPopWindow/" >HTML实现自定义弹窗</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/HTMLPopWindow/" >HTML 实现自定义弹窗</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/JsAndPyTransData/" >Js与Python数据传输</a>
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/JsAndPyTransData/" >Js 与 Python 数据传输</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/bits-stdc-h/" >macOS下的bits/stdc++.h</a>
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/03/bits-stdc-h/" >macOS 下的 bits/stdc++.h</a>
         </li>
     
     
@@ -855,11 +857,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="GitHub Pages"><span class="iconfont-archer">&#xe606;</span>GitHub Pages</span>
     
-        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
-    
         <span class="sidebar-tag-name" data-tags="GitHub"><span class="iconfont-archer">&#xe606;</span>GitHub</span>
     
         <span class="sidebar-tag-name" data-tags="Gitee"><span class="iconfont-archer">&#xe606;</span>Gitee</span>
+    
+        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
     
         <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
     
@@ -871,9 +873,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
     
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
-    
         <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
         <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
     
@@ -911,6 +913,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
     
         <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
     
