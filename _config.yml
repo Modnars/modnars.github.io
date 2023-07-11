@@ -108,7 +108,7 @@ deploy:
 backup:
   type: git
   repository: 
-    github: git@github.com:Modnars/modnars.github.io.git,hexo
+    github: https://github.com/Modnars/modnars.github.io.git,hexo
 
 # theme: archer
 jsonContent:
