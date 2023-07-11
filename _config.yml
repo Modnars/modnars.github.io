@@ -100,10 +100,7 @@ theme: archer
 deploy:
   type: git
   repo: 
-    # github: git@github.com:Modnars/modnars.github.io.git,master
-    github: https://github.com/Modnars/modnars.github.io.git,master
-    # gitee: git@gitee.com:modnar/modnar.git,master
-    # branch: master
+    github: https://github.com/Modnars/modnars.github.io.git,gh-pages
 
 backup:
   type: git
