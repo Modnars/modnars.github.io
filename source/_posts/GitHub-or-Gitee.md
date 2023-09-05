@@ -76,7 +76,7 @@ $ hexo d
 
 &#160; &#160; &#160; &#160; 这样，GitHub 和 Gitee 就可以同时拥有最新鲜的网页内容了。
 
-&#160; &#160; &#160; &#160; 比如，你可以访问 [http://www.modnar.zone/](http://www.modnar.zone/) 或 [https://modnars.github.io/](https://modnars.github.io/) 或 [https://modnar.gitee.io/](https://modnar.gitee.io/)，我的 zone 域名目前是绑定到 GitHub 提供的 Pages 上，你可以试一下这几个链接的访问速度。国内的话，应该是 Gitee 提供的 Pages 访问速度最快。
+&#160; &#160; &#160; &#160; 比如，你可以访问 [https://tech.modoo.zone](https://tech.modoo.zone) 或 [https://modnars.github.io/](https://modnars.github.io/) 或 [https://modnar.gitee.io/](https://modnar.gitee.io/)，我的 zone 域名目前是绑定到 GitHub 提供的 Pages 上，你可以试一下这几个链接的访问速度。国内的话，应该是 Gitee 提供的 Pages 访问速度最快。
 
 &#160; &#160; &#160; &#160; 至此，总结来说，本博客说明了 GitHub 和 Gitee 的一些区别，并给出了针对一些问题 / 目的的我的解决方案，若有更好的解决途径，欢迎评论分享！
 
