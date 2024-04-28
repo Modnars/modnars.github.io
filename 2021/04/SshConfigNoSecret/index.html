@@ -13,9 +13,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
-    <meta name="author" content="Modnar">
+    <meta name="author" content="Modnar Shen">
     <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Modnar">
+    <meta name="copyright" content="Modnar Shen">
     
     <meta name="keywords" content="Modnar,Blog,Modnar Blog">
     
@@ -274,7 +274,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -398,63 +398,67 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>&#160; &#160; &#160; &#160; 日常工作、学习、玩耍时，可以使用 <em><strong>SSH</strong></em> 来连接远程机器，这些远程机器很多时候都只是自己在用，而每次登录时都要输入登录密码，属实是一件麻烦的事情。本文描述了如何配置 <strong>SSH免密登录</strong> ，并提供针对配置中可能出现的问题的解决方案。</p>
-<h2 id="简要说明"><a href="#简要说明" class="headerlink" title="简要说明"></a>简要说明</h2><p>&#160; &#160; &#160; &#160; 需要拥有远程服务器的登录权限，必要时可能需要拥有 <strong>sudo</strong> 权限。</p>
-<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p>&#160; &#160; &#160; &#160; 首先，为了解决认证问题，本地需要生成一对 <strong>SSH秘钥</strong> ，其中 <strong>私钥</strong> 是不能暴露给任何第三方的，而 <strong>公钥</strong> 则是第三方认证的关键。可以执行以下命令生成一对 <em><strong>RSA</strong></em> 秘钥:</p>
+        <h2 id="问题描述"><a class="header-anchor" href="#问题描述"></a>问题描述</h2>
+<p>        日常工作、学习、玩耍时，可以使用 <em><strong>SSH</strong></em> 来连接远程机器，这些远程机器很多时候都只是自己在用，而每次登录时都要输入登录密码，属实是一件麻烦的事情。本文描述了如何配置 <strong>SSH免密登录</strong> ，并提供针对配置中可能出现的问题的解决方案。</p>
+<h2 id="简要说明"><a class="header-anchor" href="#简要说明"></a>简要说明</h2>
+<p>        需要拥有远程服务器的登录权限，必要时可能需要拥有 <strong>sudo</strong> 权限。</p>
+<h2 id="执行流程"><a class="header-anchor" href="#执行流程"></a>执行流程</h2>
+<p>        首先，为了解决认证问题，本地需要生成一对 <strong>SSH秘钥</strong> ，其中 <strong>私钥</strong> 是不能暴露给任何第三方的，而 <strong>公钥</strong> 则是第三方认证的关键。可以执行以下命令生成一对 <em><strong>RSA</strong></em> 秘钥:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -f filename -C <span class="string">"comment message"</span></span><br><span class="line"><span class="comment"># -t 表示秘钥类型，这里是 RSA 类型</span></span><br><span class="line"><span class="comment"># -f 指定秘钥对文件名称</span></span><br><span class="line"><span class="comment"># -C 指示一段注释文字，可以用其来标识秘钥内容</span></span><br></pre></td></tr></table></figure>
-
-<p>&#160; &#160; &#160; &#160; 执行上述命令（并一路回车）之后，将会生成一个名为 <strong>filename</strong> 的私钥文件、一个名为 <strong>filename.pub</strong> 的公钥文件。</p>
-<p>&#160; &#160; &#160; &#160; 然后，使用密码登录远程机器，在 <code>$HOME/.ssh/</code> 目录下，创建一个 <code>authorized_keys</code> 文件，它保存的就是可以免密登录到本机器的链接的公钥条目。</p>
-<p>&#160; &#160; &#160; &#160; 将你的公钥文件中的公钥直接拷贝到 <code>authorized_keys</code> 的一行，保存。或者，本地直接执行 <code>$ ssh-copy-id -i ~/.ssh/filename.pub Host</code> 并输入 SSH 登录密码，即可自动将指定的本地公钥内容拷贝到 Host（说明详见下文）的 <strong>authorized_keys</strong> 文件中。</p>
-<p>&#160; &#160; &#160; &#160; 在本地的 <code>$HOME/.ssh/</code> 目录下的 <code>config</code> 文件中（没有就 touch 一个），配置该远程机器的必要信息，主要条目如下:</p>
+<p>        执行上述命令（并一路回车）之后，将会生成一个名为 <strong>filename</strong> 的私钥文件、一个名为 <strong>filename.pub</strong> 的公钥文件。</p>
+<p>        然后，使用密码登录远程机器，在 <code>$HOME/.ssh/</code> 目录下，创建一个 <code>authorized_keys</code> 文件，它保存的就是可以免密登录到本机器的链接的公钥条目。</p>
+<p>        将你的公钥文件中的公钥直接拷贝到 <code>authorized_keys</code> 的一行，保存。或者，本地直接执行 <code>$ ssh-copy-id -i ~/.ssh/filename.pub Host</code> 并输入 SSH 登录密码，即可自动将指定的本地公钥内容拷贝到 Host（说明详见下文）的 <strong>authorized_keys</strong> 文件中。</p>
+<p>        在本地的 <code>$HOME/.ssh/</code> 目录下的 <code>config</code> 文件中（没有就 touch 一个），配置该远程机器的必要信息，主要条目如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host TencentCloud</span><br><span class="line">HostName xxx.xxx.xxx.xxx</span><br><span class="line">User modnarshen</span><br><span class="line">Port 22</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;filename</span><br></pre></td></tr></table></figure>
-
-<p>&#160; &#160; &#160; &#160; 这里的 <strong>Host</strong> 指示远程主机名，这个名字唯一地标识这些配置内容。 <strong>HostName</strong> 则是该主机的 IP 地址， <strong>User</strong>，顾名思义，就是使用目标机器的哪个用户来登录， <strong>Port</strong> 就是 SSH 连接所使用的端口号，SSH 服务默认端口号为 22， <strong>IdentityFile</strong> 就是指示本地采用哪个秘钥文件来做认证校验，当然，这就是上面配置的 filename 这个秘钥文件。需要注意的是，这里填的是 <strong>私钥</strong> 文件路径，而不是 <strong>filename.pub</strong> 这个公钥文件路径。</p>
-<p>&#160; &#160; &#160; &#160; 正确设置并保存上述内容之后，即可通过 <code>$ ssh Host</code> 来免密登录远程机器了。比如上面配置 <strong>Host</strong> 为 TencentCloud，那么就可以通过 <code>$ ssh TencentCloud</code> 来登录远程的腾讯云服务器。</p>
-<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><p>&#160; &#160; &#160; &#160; 在按照上述流程执行过后，可能依然无法免密登录，其原因可能比较多，这里介绍一个笔者配置时遇到的问题，类似问题的解决思路都是一样的。</p>
+<p>        这里的 <strong>Host</strong> 指示远程主机名，这个名字唯一地标识这些配置内容。 <strong>HostName</strong> 则是该主机的 IP 地址， <strong>User</strong>，顾名思义，就是使用目标机器的哪个用户来登录， <strong>Port</strong> 就是 SSH 连接所使用的端口号，SSH 服务默认端口号为 22， <strong>IdentityFile</strong> 就是指示本地采用哪个秘钥文件来做认证校验，当然，这就是上面配置的 filename 这个秘钥文件。需要注意的是，这里填的是 <strong>私钥</strong> 文件路径，而不是 <strong>filename.pub</strong> 这个公钥文件路径。</p>
+<p>        正确设置并保存上述内容之后，即可通过 <code>$ ssh Host</code> 来免密登录远程机器了。比如上面配置 <strong>Host</strong> 为 TencentCloud，那么就可以通过 <code>$ ssh TencentCloud</code> 来登录远程的腾讯云服务器。</p>
+<h2 id="其他问题"><a class="header-anchor" href="#其他问题"></a>其他问题</h2>
+<p>        在按照上述流程执行过后，可能依然无法免密登录，其原因可能比较多，这里介绍一个笔者配置时遇到的问题，类似问题的解决思路都是一样的。</p>
 <blockquote>
 <p>在执行 <code>ssh TencentCloud</code> 命令之后，依旧需要填写密码。</p>
 </blockquote>
-<p>&#160; &#160; &#160; &#160; 首先，打开 <strong>SSH</strong> 的调试日志，执行命令 <code>ssh -vvv Host</code> 来打印登录过程中的执行日志，可以从日志中看到如下内容，很明显，这些就是无法免密认证的直接原因:</p>
+<p>        首先，打开 <strong>SSH</strong> 的调试日志，执行命令 <code>ssh -vvv Host</code> 来打印登录过程中的执行日志，可以从日志中看到如下内容，很明显，这些就是无法免密认证的直接原因:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">debug1: Next authentication method: publickey</span><br><span class="line">debug1: Offering public key: &#x2F;Users&#x2F;modnarshen&#x2F;.ssh&#x2F;modnar_rsa RSA XXXXXX explicit</span><br><span class="line">debug3: send packet: type 50</span><br><span class="line">debug2: we sent a publickey packet, wait for reply</span><br><span class="line">debug3: receive packet: type 51</span><br><span class="line">debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password</span><br><span class="line">debug2: we did not send a packet, disable method</span><br><span class="line">debug3: authmethod_lookup password</span><br><span class="line">debug3: remaining preferred: ,password</span><br><span class="line">debug3: authmethod_is_enabled password</span><br><span class="line">debug1: Next authentication method: password</span><br></pre></td></tr></table></figure>
-
-<p>&#160; &#160; &#160; &#160; 其中比较有标志性的，应该是收到的回包类型为 <code>51</code>，然而利用这条日志，并没有找到很多针对性的解决方案。在参考一篇博客（见下面参考链接）之后，发现可以从系统安全日志来查看下相关信息。</p>
-<p>&#160; &#160; &#160; &#160; 远程执行 <code>$ sudo tail -f /var/log/secure</code> 来监视安全日志信息变化，同时本地再次尝试SSH登录，可以得到远程新增安全日志信息，其中比较有价值的如下:</p>
+<p>        其中比较有标志性的，应该是收到的回包类型为 <code>51</code>，然而利用这条日志，并没有找到很多针对性的解决方案。在参考一篇博客（见下面参考链接）之后，发现可以从系统安全日志来查看下相关信息。</p>
+<p>        远程执行 <code>$ sudo tail -f /var/log/secure</code> 来监视安全日志信息变化，同时本地再次尝试SSH登录，可以得到远程新增安全日志信息，其中比较有价值的如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Apr 17 15:04:31 VM-16-10-centos sudo[3307643]: modnarshen : TTY&#x3D;pts&#x2F;0 ; PWD&#x3D;&#x2F;home&#x2F;modnarshen ; USER&#x3D;root ; COMMAND&#x3D;&#x2F;bin&#x2F;tail -f &#x2F;var&#x2F;log&#x2F;secure</span><br><span class="line">Apr 17 15:04:31 VM-16-10-centos sudo[3307643]: pam_systemd(sudo:session): Cannot create session: Already running in a session or user slice</span><br><span class="line">Apr 17 15:04:31 VM-16-10-centos sudo[3307643]: pam_unix(sudo:session): session opened for user root by modnarshen(uid&#x3D;0)</span><br><span class="line">Apr 17 15:04:40 VM-16-10-centos sshd[3307670]: Authentication refused: bad ownership or modes for directory &#x2F;home&#x2F;modnarshen&#x2F;.ssh</span><br></pre></td></tr></table></figure>
-
-<p>&#160; &#160; &#160; &#160; 问题就在于远程 <strong>.ssh</strong> 目录的权限问题，出于安全性的考虑，SSH 不允许除 <strong>.ssh</strong> 目录拥有者外的其他用户具有写权限。因此重新修改远程 <strong>.ssh</strong> 目录的权限即可解决这个问题。</p>
-<p>&#160; &#160; &#160; &#160; 这里给出几个 SSH 相关文件的权限，以便读者尝试及后续回顾:</p>
+<p>        问题就在于远程 <strong>.ssh</strong> 目录的权限问题，出于安全性的考虑，SSH 不允许除 <strong>.ssh</strong> 目录拥有者外的其他用户具有写权限。因此重新修改远程 <strong>.ssh</strong> 目录的权限即可解决这个问题。</p>
+<p>        这里给出几个 SSH 相关文件的权限，以便读者尝试及后续回顾:</p>
 <table>
 <thead>
 <tr>
-<th align="center">文件</th>
-<th align="center">权限</th>
-<th align="center">chmod</th>
+<th style="text-align:center">文件</th>
+<th style="text-align:center">权限</th>
+<th style="text-align:center">chmod</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><strong>.ssh/</strong></td>
-<td align="center"><code>drwxr-xr-x</code></td>
-<td align="center">700</td>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>.ssh/</strong></td>
+<td style="text-align:center"><code>drwxr-xr-x</code></td>
+<td style="text-align:center">700</td>
 </tr>
 <tr>
-<td align="center"><strong>authorized_keys</strong></td>
-<td align="center"><code>-rw-------</code></td>
-<td align="center">600</td>
+<td style="text-align:center"><strong>authorized_keys</strong></td>
+<td style="text-align:center"><code>-rw-------</code></td>
+<td style="text-align:center">600</td>
 </tr>
 <tr>
-<td align="center"><strong>config</strong></td>
-<td align="center"><code>-rw-------</code></td>
-<td align="center">600</td>
+<td style="text-align:center"><strong>config</strong></td>
+<td style="text-align:center"><code>-rw-------</code></td>
+<td style="text-align:center">600</td>
 </tr>
 <tr>
-<td align="center"><strong>known_hosts</strong></td>
-<td align="center"><code>-rw-r-----</code></td>
-<td align="center">640</td>
+<td style="text-align:center"><strong>known_hosts</strong></td>
+<td style="text-align:center"><code>-rw-r-----</code></td>
+<td style="text-align:center">640</td>
 </tr>
-</tbody></table>
-<h2 id="2021-07-12-更新"><a href="#2021-07-12-更新" class="headerlink" title="2021.07.12 更新"></a>2021.07.12 更新</h2><p>&#160; &#160; &#160; &#160; 上述目录 / 文件所在的目录权限也要符合。举例来说，<code>.ssh</code> 目录的权限要求是 <code>700</code>，那它所在的 <code>$HOME</code> 目录的权限就不能是 <code>777</code>。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+</tbody>
+</table>
+<h2 id="2021-07-12-更新"><a class="header-anchor" href="#2021-07-12-更新"></a>2021.07.12 更新</h2>
+<p>        上述目录 / 文件所在的目录权限也要符合。举例来说，<code>.ssh</code> 目录的权限要求是 <code>700</code>，那它所在的 <code>$HOME</code> 目录的权限就不能是 <code>777</code>。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考"></a>参考</h2>
+<blockquote>
 <p><a href="https://blog.csdn.net/lisongjia123/article/details/78513244" target="_blank" rel="noopener">https://blog.csdn.net/lisongjia123/article/details/78513244</a></p>
 </blockquote>
 
@@ -462,7 +466,7 @@ height:50vh;
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者：<a href="https://tech.modoo.zone">Modnar</a>
+            <p>原文作者：<a href="https://tech.modoo.zone">Modnar Shen</a>
             <p>原文链接：<a href="https://tech.modoo.zone/2021/04/SshConfigNoSecret/">https://tech.modoo.zone/2021/04/SshConfigNoSecret/</a>
             <p>发表日期：<a href="https://tech.modoo.zone/2021/04/SshConfigNoSecret/">April 17th 2021, 3:10:55 pm</a>
             <p>更新日期：<a href="https://tech.modoo.zone/2021/04/SshConfigNoSecret/">August 2nd 2023, 4:00:17 pm</a>
@@ -732,9 +736,57 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 11
+        Total : 15
         </div>
         <!-- search  -->
         
@@ -744,6 +796,44 @@ top:50vh;
     
     
     
+    
+    <div class="archive-year"> 2024 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2024/04/GoPkgManagement/" >Go 的包管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2024/04/GoConcurrency/" >GoConcurrency</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2023 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/2023/12/RPC-with-CXX20-Coroutines/" >一种 C++20 协程下 RPC 服务框架的设计与实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2023/10/CXX20-Coroutines/" >C++20 协程原理</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2022 </div>
     <ul class="year-list">
@@ -774,12 +864,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
         </li>
     
     
@@ -828,37 +918,45 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="C/C++"><span class="iconfont-archer">&#xe606;</span>C/C++</span>
     
+        <span class="sidebar-tag-name" data-tags="Coroutines"><span class="iconfont-archer">&#xe606;</span>Coroutines</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
-    
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
-    
-        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
-    
-        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
-    
-        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
-    
-        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
-    
-        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
-    
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="Domain"><span class="iconfont-archer">&#xe606;</span>Domain</span>
     
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
         <span class="sidebar-tag-name" data-tags="GitHub Pages"><span class="iconfont-archer">&#xe606;</span>GitHub Pages</span>
-    
-        <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
-    
-        <span class="sidebar-tag-name" data-tags="centOS"><span class="iconfont-archer">&#xe606;</span>centOS</span>
     
         <span class="sidebar-tag-name" data-tags="GitHub"><span class="iconfont-archer">&#xe606;</span>GitHub</span>
     
         <span class="sidebar-tag-name" data-tags="Gitee"><span class="iconfont-archer">&#xe606;</span>Gitee</span>
     
-        <span class="sidebar-tag-name" data-tags="Coroutines"><span class="iconfont-archer">&#xe606;</span>Coroutines</span>
+        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="包管理"><span class="iconfont-archer">&#xe606;</span>包管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
+    
+        <span class="sidebar-tag-name" data-tags="centOS"><span class="iconfont-archer">&#xe606;</span>centOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++20 Coroutines"><span class="iconfont-archer">&#xe606;</span>C++20 Coroutines</span>
+    
+        <span class="sidebar-tag-name" data-tags="RPC"><span class="iconfont-archer">&#xe606;</span>RPC</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -899,6 +997,8 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
     
+        <span class="sidebar-category-name" data-categories="博客"><span class="iconfont-archer">&#xe60a;</span>博客</span>
+    
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
     <div class="sidebar-categories-list"></div>
@@ -908,7 +1008,7 @@ jsonContent:
     <script>
     var siteMeta = {
         root: "/",
-        author: "Modnar"
+        author: "Modnar Shen"
     }
 </script>
     <!-- CDN failover -->

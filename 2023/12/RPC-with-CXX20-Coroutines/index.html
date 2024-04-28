@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Modnar Shen">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Modnar Shen">
+    
+    <meta name="keywords" content="Modnar,Blog,Modnar Blog">
+    
+    <meta name="description" content="创想社">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>一种 C++20 协程下 RPC 服务框架的设计与实现 · Modnar&#39;s Zone</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Modnar&#39;s Zone</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">一种 C++20 协程下 RPC 服务框架的设计与实现</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Modnar's Zone</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            一种 C++20 协程下 RPC 服务框架的设计与实现
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "C++20 Coroutines">C++20 Coroutines</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "RPC">RPC</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3.6k</span>阅读时长: <span class="post-count reading-time">14 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2023/12/05</span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="亮点"><a class="header-anchor" href="#亮点"></a>亮点</h2>
+<p>使用 <code>C++20</code> 原生协程来实现一些常用的功能组件，并将其应用至实际的 <code>RPC</code> 场景，本项目<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>给出了一种具体的实现应用方案。</p>
+<p>本项目兼顾了业务开发者（库应用端）的 <strong>易用性</strong> 与库性能的 <strong>高效性</strong>。是一种将 <code>C++20</code> 协程投入实际生产落地的具体方案，对于细节拓展，也为后续开发者尽可能预留了功能拓展的可能性。</p>
+<p>对于实际业务场景来说，注册新的 <code>Service</code> 类型族，新的 <code>Method</code> 业务功能，都变得非常简单。在本库及相应的插件支持下，业务代码只需要实现相应的 <code>Method</code> 内部逻辑即可：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mt::Task&lt;<span class="keyword">int</span>&gt; protocol::DemoServiceImpl::Echo(::google::protobuf::RpcController *controller,</span><br><span class="line">                                              <span class="keyword">const</span> ::protocol::EchoReq &amp;req, ::protocol::EchoRsp &amp;rsp,</span><br><span class="line">                                              ::google::protobuf::Closure *done) &#123;</span><br><span class="line">    LLOG_TRACE(<span class="string">"req: %s"</span>, req.ShortDebugString().c_str());</span><br><span class="line">    <span class="keyword">if</span> (req.msg().size() &gt; <span class="number">0U</span>L &amp;&amp; req.msg()[<span class="number">0U</span>L] != <span class="string">'A'</span>) &#123;</span><br><span class="line">        protocol::EchoReq inner_req;</span><br><span class="line">        protocol::EchoRsp inner_rsp;</span><br><span class="line">        inner_req.set_msg(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"ACK: "</span>) + req.msg());</span><br><span class="line">        <span class="built_in">std</span>::<span class="keyword">uint64_t</span> uid = <span class="number">1U</span>L;  <span class="comment">// 路由到另一个服务进程（用 uid % channels_num 来路由）</span></span><br><span class="line">        <span class="keyword">auto</span> ret = <span class="keyword">co_await</span> DemoServiceStub::Echo(uid, inner_req, &amp;inner_rsp);</span><br><span class="line">        CO_COND_RET_WLOG(ret != <span class="number">0</span>, ret, <span class="string">"call DemoServiceStub::Echo failed|ret:%d"</span>, ret);</span><br><span class="line">        rsp.set_msg(inner_rsp.msg() + <span class="string">" @2"</span>);</span><br><span class="line">        <span class="keyword">co_return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rsp.set_msg(req.msg() + <span class="string">" @1"</span>);</span><br><span class="line">    <span class="keyword">co_return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于业务中需要向其他服务请求并获得回包数据的场景，会自动挂起当前协程，发送一个 RPC 请求，等到收到相应 RPC 应答回包时，自动恢复当前协程并继续执行。使用协程来编写异步代码，直观性、高效性在此得到充分展现。值得注意的是，<code>C++20</code> 下，对于协程调用，这里需要使用 <code>co_await</code> 关键字来等待协程执行，相较于以往栈式协程（比如 libco 协程库）而言，可能多了一个语言的关键字，同时要求逻辑本身写在一个协程中（比如本项目会<strong>自动生成代码</strong>，但注意生成的代码体本身是一个协程）。这本身并不能算是一个缺点，而是 <code>C++20</code> 语言标准下的一个特点——协程调用就用 <code>co_await</code> 来标识（或者说得具体一些，是需要等待协程执行返回值的场景下）。相应的，对于协程内的返回值返回，使用 <code>co_return</code> 而非传统函数的 <code>return</code>。</p>
+<p>对于 <code>C++</code> 标准的发展趋势来看，未来 <code>execution</code> 进入标准可能会极大弱化这样的协程关键字使用。但处于过渡阶段的当下，熟悉并使用这样的机制还是很必要的。</p>
+<h2 id="方案设计"><a class="header-anchor" href="#方案设计"></a>方案设计</h2>
+<h3 id="RpcCoroMgr"><a class="header-anchor" href="#RpcCoroMgr"></a>RpcCoroMgr</h3>
+<p>用于管理挂起的协程上下文，当当前协程需要主动让出时。RpcCoroMgr 将保存当前协程的上下文，并将执行流主动让给调用者。当后续收到协程关注的网络回包数据时，通过回包内的序列号确定这个关注的协程 ID，继而恢复这个协程的执行。首先，RpcCoroMgr 定义的类型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RpcCoroMgr</span> :</span> <span class="keyword">public</span> mt::Singleton&lt;RpcCoroMgr&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> coro_uid_type = <span class="built_in">std</span>::<span class="keyword">uint64_t</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">context</span> &#123;</span></span><br><span class="line">        <span class="keyword">int</span> session_id = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">std</span>::coroutine_handle&lt;&gt; handle = <span class="literal">nullptr</span>;</span><br><span class="line">        ::google::protobuf::Message *rsp = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>session_id</code> 是用于通道通信时使用的标识，这个和实现机制有关，阅读源码可以明晰其具体作用。简单来说，这里挂起的上下文结构体的内容，需要保证恢复执行时，依然能确保之前执行逻辑所需要的相关环境数据即可。</p>
+<p>同样的，<code>RpcCoroMgr</code> 的成员变量定义也很简洁：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;coro_uid_type, context&gt; suspended_contexts_;</span><br><span class="line">    <span class="comment">// coro_uid generator, which could generate unique id without `0`.</span></span><br><span class="line">    <span class="keyword">static</span> coro_uid_type coro_uid_generator_;</span><br><span class="line">    <span class="keyword">bool</span> use_coro_ = <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>suspended_contexts_</code> 成员保存的就是协程唯一 ID 与被挂起的协程上下文之间的映射关系。在明晰了上述定义的类型与成员变量后，明确 <code>RpcCoroMgr</code> 提供的两个功能接口：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">Suspend</span><span class="params">(coro_uid_type coro_uid, context ctx)</span> </span>&#123; <span class="keyword">return</span> suspended_contexts_.insert(&#123;coro_uid, ctx&#125;).second; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">context <span class="title">Pop</span><span class="params">(coro_uid_type coro_uid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">auto</span> iter = suspended_contexts_.find(coro_uid); iter != suspended_contexts_.end()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> ctx = iter-&gt;second;</span><br><span class="line">            suspended_contexts_.erase(iter);</span><br><span class="line">            <span class="keyword">return</span> ctx;</span><br><span class="line">        &#125;</span><br><span class="line">        LLOG_ERROR(<span class="string">"coro_uid not found|coro_uid:%lu"</span>, coro_uid);</span><br><span class="line">        <span class="keyword">return</span> context&#123;.handle = &#123;&#125;, .rsp = <span class="literal">nullptr</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>由此可见，<code>RpcCoroMgr</code> 提供了最基础的挂起保存上下文和弹出指定协程 ID 的上下文两个接口，后续可以将这两个功能接口与必要的挂起/恢复点逻辑结合起来，从而实现执行流的切换（有些类似于 <code>libco</code> 的 <code>coctx_swap</code>，但于 <code>libco</code> 而言，是从汇编层面替换堆栈寄存器数据）。</p>
+<h3 id="SaveContextAwaiter"><a class="header-anchor" href="#SaveContextAwaiter"></a>SaveContextAwaiter</h3>
+<p>在确定了上述的 <code>RpcCoroMgr</code> 功能及其需要的参数以后，就需要考虑如何获取相关的参数。很明显，这里需要将控制流句柄（<code>std::coroutine_handle</code> 对象。句柄这个词已经被广泛使用了，这里也）获取并传递。为了获取当前协程的句柄，可以构造一个 <code>awaiter</code> 对象，当对这个对象使用单目运算符 <code>co_await</code> 时，编译器生成代码逻辑会将协程句柄传递给这个 <code>awaiter</code> 类的 <code>await_suspend</code> 成员函数函数。在解决这个句柄参数的获取问题后，就可以将其他参数通过这个 <code>awaiter</code> 对象的构造函数来传递。所以为了实现保存上下文功能而定义的 <code>awaiter</code> 类，其代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SaveContextAwaiter</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SaveContextAwaiter(RpcCoroMgr::coro_uid_type coro_uid, RpcCoroMgr::context context)</span><br><span class="line">        : coro_uid_(coro_uid), context_(context) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">await_ready</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) <span class="title">await_suspend</span><span class="params">(<span class="built_in">std</span>::coroutine_handle&lt;&gt; handle)</span> </span>&#123;</span><br><span class="line">        LLOG_INFO(<span class="string">"suspend coro|coro_uid:%lu|%p|rsp:%p"</span>, coro_uid_, handle.address(), context_.rsp);</span><br><span class="line">        context_.handle = handle;</span><br><span class="line">        RpcCoroMgr::GetInst().Suspend(coro_uid_, context_);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">await_resume</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    RpcCoroMgr::coro_uid_type coro_uid_ = <span class="number">0U</span>L;</span><br><span class="line">    RpcCoroMgr::context context_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对于 <code>await_suspend</code> 的返回值类型，如果是 <code>bool</code> 类型，当返回 <code>true</code> 时，当前协程执行挂起并将执行流返还给调用者/恢复者；当返回 <code>false</code> 时，当前协程会继续执行，继而调用执行 <code>await_resume</code> 函数并返回其执行结果。关于这部分内容，如果不了解、不熟悉，建议优先阅读 <a href="https://lewissbaker.github.io/2017/11/17/understanding-operator-co-await" target="_blank" rel="noopener"><em>C++ Coroutines: Understanding operator co_await</em></a>。</p>
+<h3 id="RpcServiceMgr"><a class="header-anchor" href="#RpcServiceMgr"></a>RpcServiceMgr</h3>
+<p>在定义并明晰了上述类型的功能概念后，对于具体注册的 <code>RPC</code> 服务，用一个统一的包装类 <code>RpcServiceMgr</code> 来实现 <code>RPC</code> 通用逻辑执行流程的管理。</p>
+<p>首先，明晰一下 <code>RpcServiceMgr</code> 在进程中的作用与主要接口：</p>
+<p><img src="mt.01.drawio.png" alt="逻辑执行流程"></p>
+<p align="center">
+图 1 逻辑执行流程
+<p>
+<p>在 <code>RpcServer</code> 的服务接口内，主循环调用 <code>ConnMgr</code> 单例的 <code>Tick</code> 来进行网络收发包。当收取到一个网络包时，首先解析数据包类型是请求包还是回复包。对于前者，往往是客户端（内部服务间 RPC 调用时，调用者本身在这个调用关系中也可以视为客户端）发过来的请求，此时调用 <code>RpcServiceMgr</code> 的 <code>DealRequest</code> 协程来处理；对于后者，往往是进程本身作为客户端收到请求回包的场景，此时调用 <code>RpcServiceMgr</code> 的 <code>DealResponse</code> 协程来处理。</p>
+<p>当在执行 <code>DealRequest</code> 的过程中，如果处理执行的业务逻辑内依赖了另一个服务进程的回包，此时就调用 <code>RpcServiceMgr</code> 的 <code>Rpc</code> 接口来发起请求。由此可见，所有的异步请求都可以收敛到这个 <code>Rpc</code> 请求接口内，进而发起请求时挂起当前协程的逻辑写在这里就可以。</p>
+<p>考虑一种实际的业务需求，当发起的 <code>RPC</code> 本身不需要等待回包即可完成逻辑执行时（比如逻辑内只需要发送一个无关紧要的通知包），此时就无需挂起当前协程，继续执行逻辑即可。这一部分的优化可以体现在实现代码中：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mt::Task&lt;<span class="keyword">int</span>&gt; <span class="title">RpcServiceMgr::Rpc</span><span class="params">(<span class="built_in">std</span>::<span class="keyword">uint32_t</span> cmd, <span class="built_in">std</span>::<span class="keyword">uint64_t</span> uid, <span class="keyword">const</span> ::google::protobuf::Message &amp;req,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 ::google::protobuf::Message *rsp, <span class="built_in">std</span>::<span class="keyword">uint32_t</span> timeout)</span> </span>&#123;</span><br><span class="line">    LLOG_TRACE(<span class="string">"call rpc|uid:%lu|req: %s"</span>, uid, req.ShortDebugString().c_str());</span><br><span class="line">    assert(!channels_.empty());</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="keyword">uint64_t</span> seq_id = RpcCoroMgr::GetInst().NewCoroUid();</span><br><span class="line">    PkgHead pkg_head&#123;.src = <span class="number">0U</span>L, .dst = <span class="number">0U</span>L, .uid = uid, .seq = seq_id, .cmd = cmd&#125;;</span><br><span class="line">    <span class="keyword">auto</span> *channel = channels_[uid % channels_.size()];</span><br><span class="line">    channel-&gt;Send(pkg_head, req);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rsp) &#123;</span><br><span class="line">        COND_EXP(seq_id == <span class="number">0U</span>L, channel-&gt;BlockingWaitResponse(rsp); <span class="keyword">co_return</span> <span class="number">0</span>);  <span class="comment">// 针对 client 先阻塞</span></span><br><span class="line">        RpcCoroMgr::context context&#123;.session_id = session_id_, .rsp = rsp&#125;;</span><br><span class="line">        <span class="function"><span class="keyword">co_await</span> <span class="title">mt::dump_call_stack</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="keyword">co_await</span> SaveContextAwaiter&#123;seq_id, context&#125;;</span><br><span class="line">        LLOG_INFO(<span class="string">"RESUME TO CURRENT COROUTINE"</span>);</span><br><span class="line">        <span class="function"><span class="keyword">co_await</span> <span class="title">mt::dump_call_stack</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">co_return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于 <code>DealRequest</code> 而言，其逻辑主要就是根据请求包确定具体的 <code>Service</code> 及 <code>Method</code> 类型，进而通过调用相关的业务侧实现的接口来完成相应的业务逻辑。值得注意的是，为了保证相关流程被挂起后能恢复执行，这里就需要让相应的业务侧实现接口本身是一个协程。这样才能保证调用内层协程被挂起的时候，外层的逻辑也是被挂起等待后续恢复执行的。</p>
+<p>而对于 <code>DealResponse</code> 来说，其逻辑就相对简洁明了很多。核心的逻辑就是确定具体的被挂起的协程，进而将其恢复执行。回到执行流上，这段被恢复的协程执行完毕后，执行流会回到 <code>DealResponse</code> 上，此时还可以补充额外的定制化逻辑。</p>
+<p>综上，对于网络包的处理流程，把 <code>DealRequset</code> 和 <code>DealResponse</code> 抽象为 <code>HandleReq</code> 和 <code>HandleRsp</code> 的通用操作，那么对于一个处理请求过程中存在等待网络请求回包的场景，其执行流程时序图大致如下：</p>
+<p><img src="mt.02.drawio.png" alt="处理请求过程中存在等待网络请求回包场景的执行流程时序图"></p>
+<p align="center">
+图 2 处理请求过程中存在等待网络请求回包场景的执行流程时序图
+<p>
+<h3 id="protoc-co-plugin"><a class="header-anchor" href="#protoc-co-plugin"></a>protoc_co_plugin</h3>
+<p>明确了上述所有组件功能及实现原理后，将视角聚焦到业务开发者。对于业务开发者而言，其关注的更多的只是具体业务的逻辑。对于 <code>RPC</code> 框架而言，往往也就是具体的一个个的 <code>Method</code> 逻辑实现。在上述框架下，为了保证逻辑内可能的向其他服务请求的场景，也就是说具体 <code>Method</code> 内，依然可能需要调用一个能够支持协程请求的 <code>Method</code>。对于服务端而言，其所有的这样的协程调用，均可以收敛到前文所述的 <code>RpcServiceMgr::Rpc</code> 接口，那么又该如何用一个相对优雅的方式来使得业务调用相对简洁而又保证形式、逻辑统一呢？</p>
+<p>针对一个具体的 <code>protobuf</code> 定义的 <code>Service</code> 及 <code>Method</code> 示例：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">DemoService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">rpc</span> Echo(EchoReq) <span class="keyword">returns</span> (EchoRsp) &#123; option(RPC_CMD) = DEMO_SERVICE_ECHO</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里指定了必要的 <code>rpc</code> 所需的字段，同时还添加了一个 <code>option(RPC_CMD)</code>，这个是和业务相关的 <code>命令字</code>，用于区分具体的 <code>Method</code>。可以预知，当业务功能繁杂时，类似的 <code>rpc</code> 定义的 <code>Method</code> 会越来越多，但他们的形式都是非常类似的。为了支持 C++20 下形式类似于 <code>co_await Rpc::Method</code> 的协程调用，其内部逻辑会是这个样子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mt::Task&lt;<span class="keyword">int</span>&gt; <span class="title">DemoServiceStub::Echo</span><span class="params">(<span class="built_in">std</span>::<span class="keyword">uint64_t</span> uid,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">const</span> EchoReq&amp; request, EchoRsp* response,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="built_in">std</span>::<span class="keyword">uint32_t</span> timeout)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (timeout == <span class="number">0U</span>)</span><br><span class="line">    timeout = <span class="number">5000U</span>;</span><br><span class="line">  co_return co_await RpcServiceMgr::GetInst().Rpc(0x1000001U, uid, request, response, timeout);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>既然代码形式如此简单、结构重复性如此之强，那么这样的代码自然首选使用插件来自动生成。<code>protoc</code><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> 在将 <code>.proto</code> 文件生成目标的 <code>.pb.h</code>、<code>.pb.cc</code> 文件时，可以支持插件自定义插入生成业务代码，所以可以实现这样一种支持 <code>C++20</code> 协程的接口代码：</p>
+<p><img src="mt.03.drawio.png" alt=""></p>
+<p align="center">
+图 3 protoc_co_plugin 插件启用参数及其生成的代码结构
+<p>
+<p>在构建时指定相应插件参数，<code>protoc</code> 生成的最终代码就会包含自定义的插件实现的生成代码。这里可以看到，除了一些 <code>protobuf</code> 必要生成的类及接口（图中淡蓝色）外，还有两个自定义生成的类（图中浅黄色）：<code>DemoServiceImpl</code> 和 <code>DemoServiceStub</code>。前者用于定义服务端业务接口逻辑，后者用于模拟客户端发起 <code>RPC</code> 协程调用。这里为了<strong>确保协程层层调用才能在挂起后沿调用栈逐层恢复执行</strong>，这里改造了一个必要的接口：<code>CallCoMethod</code>。其功能对应于 <code>protobuf</code> 生成的 <code>CallMethod</code>，只是在这里为了支持 <code>C++20</code> 的协程调用，将其单独定义了相似的一套。对于 <code>CallCoMethod</code> 及 <code>XXXServiceStub::Method</code> 而言，其代码可以通过 <code>proto</code> 原型文件确定，故可以在此生成阶段直接生成（图中也用浅绿色进行了标识）。那么，此时对于业务而言，仅需实现具体的功能接口（图中淡紫色）逻辑即可。</p>
+<p>为了更好地展示框架的易用效果，这里给出一种功能逻辑下的业务代码（与 <a href="#%E4%BA%AE%E7%82%B9">亮点</a> 章节的示例代码相同）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mt::Task&lt;<span class="keyword">int</span>&gt; protocol::DemoServiceImpl::Echo(::google::protobuf::RpcController *controller,</span><br><span class="line">                                              <span class="keyword">const</span> ::protocol::EchoReq &amp;req, ::protocol::EchoRsp &amp;rsp,</span><br><span class="line">                                              ::google::protobuf::Closure *done) &#123;</span><br><span class="line">    LLOG_TRACE(<span class="string">"req: %s"</span>, req.ShortDebugString().c_str());</span><br><span class="line">    <span class="keyword">if</span> (req.msg().size() &gt; <span class="number">0U</span>L &amp;&amp; req.msg()[<span class="number">0U</span>L] != <span class="string">'A'</span>) &#123;</span><br><span class="line">        protocol::EchoReq inner_req;</span><br><span class="line">        protocol::EchoRsp inner_rsp;</span><br><span class="line">        inner_req.set_msg(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"ACK: "</span>) + req.msg());</span><br><span class="line">        <span class="built_in">std</span>::<span class="keyword">uint64_t</span> uid = <span class="number">1U</span>L;  <span class="comment">// 路由到另一个服务进程（用 uid % channels_num 来路由）</span></span><br><span class="line">        <span class="keyword">auto</span> ret = <span class="keyword">co_await</span> DemoServiceStub::Echo(uid, inner_req, &amp;inner_rsp);</span><br><span class="line">        CO_COND_RET_WLOG(ret != <span class="number">0</span>, ret, <span class="string">"call DemoServiceStub::Echo failed|ret:%d"</span>, ret);</span><br><span class="line">        rsp.set_msg(inner_rsp.msg() + <span class="string">" @2"</span>);</span><br><span class="line">        <span class="keyword">co_return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rsp.set_msg(req.msg() + <span class="string">" @1"</span>);</span><br><span class="line">    <span class="keyword">co_return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这段代码的功能逻辑很简单。如果请求包的字符串以 <code>A</code> 开头，就直接在后面补充添加 <code> @1</code> 并将其回包；否则在其请求串前添加 <code>ACK: </code> 前缀，并将其转发到另一个服务进程（具体路由转发规则可自行定义），协程等待回包，在获得回包后，后接 <code> @2</code> 并将其回包。</p>
+</blockquote>
+<h3 id="其他"><a class="header-anchor" href="#其他"></a>其他</h3>
+<p>本文详述了一种 <code>C++20</code> 协程与 <code>RPC</code> 框架的结合落地方案，其使用形式与以往存在一些差异，但就<strong>易用性</strong>而言，是几乎没有任何减损的。对于 <code>C++20</code> 协程的<strong>高效性</strong>，@regangcli 给出了和传统 <code>libco</code> 实现方案的对比并有相应的具体量化数据差异对比<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。<code>C++20</code> 创建协程的纳秒级效率令人惊叹，对于技术的探索实践也是值得我们不断尝试的事情。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考"></a>参考</h2>
+<ul>
+<li><a href="https://lewissbaker.github.io/" target="_blank" rel="noopener">Lewis Baker: Asymmetric Transfer Blogs</a></li>
+<li><a href="https://github.com/netcan/asyncio" target="_blank" rel="noopener">github/netcan/asyncio</a></li>
+<li><a href="https://github.com/lewissbaker/cppcoro" target="_blank" rel="noopener">github/lewissbaker/cppcoro</a></li>
+</ul>
+<h3 id="推荐"><a class="header-anchor" href="#推荐"></a>推荐</h3>
+<ul>
+<li><a href="https://km.woa.com/articles/show/583648" target="_blank" rel="noopener">基于C++20无栈协程与protobuf的轻量级、高性能RPC框架</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>本项目源码均已开源，仓库地址：<a href="https://git.woa.com/modnarshen/MT" target="_blank" rel="noopener">git.woa.com/modnarshen/MT</a>、<a href="https://github.com/Modnars/MT" target="_blank" rel="noopener">github.com/Modnars/MT</a>。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>本项目使用的 <code>protoc</code> 版本为 <code>libprotoc 3.20.3</code>。对于 <code>option</code> 等的支持，不同版本间可能存在差异，使用时需要具体关注。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>参考项目 <a href="https://github.com/lgc1112/cpp20coroutine-protobuf-rpc" target="_blank" rel="noopener">github.com/lgc1112/cpp20coroutine-protobuf-rpc</a> 及 <a href="https://github.com/lgc1112/cpp20coroutine-protobuf-rpc#readme" target="_blank" rel="noopener">项目文档</a>、<a href="https://km.woa.com/articles/show/583648" target="_blank" rel="noopener">博客文章</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://tech.modoo.zone">Modnar Shen</a>
+            <p>原文链接：<a href="https://tech.modoo.zone/2023/12/RPC-with-CXX20-Coroutines/">https://tech.modoo.zone/2023/12/RPC-with-CXX20-Coroutines/</a>
+            <p>发表日期：<a href="https://tech.modoo.zone/2023/12/RPC-with-CXX20-Coroutines/">December 5th 2023, 5:22:08 pm</a>
+            <p>更新日期：<a href="https://tech.modoo.zone/2023/12/RPC-with-CXX20-Coroutines/">December 5th 2023, 5:48:04 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2024/04/GoConcurrency/" title= "GoConcurrency">
+                    <div class="nextTitle">GoConcurrency</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2023/10/CXX20-Coroutines/" title= "C++20 协程原理">
+                    <div class="prevTitle">C++20 协程原理</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:modnar@foxmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Modnars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/avatar/modtalk.qr.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//weibo.com/u/5963363224" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//www.linkedin.com/in/耀斌-谌-a1664b128/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#亮点"><span class="toc-number">1.</span> <span class="toc-text">亮点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方案设计"><span class="toc-number">2.</span> <span class="toc-text">方案设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RpcCoroMgr"><span class="toc-number">2.1.</span> <span class="toc-text">RpcCoroMgr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SaveContextAwaiter"><span class="toc-number">2.2.</span> <span class="toc-text">SaveContextAwaiter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RpcServiceMgr"><span class="toc-number">2.3.</span> <span class="toc-text">RpcServiceMgr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#protoc-co-plugin"><span class="toc-number">2.4.</span> <span class="toc-text">protoc_co_plugin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">2.5.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#推荐"><span class="toc-number">3.1.</span> <span class="toc-text">推荐</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 15
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2024 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2024/04/GoPkgManagement/" >Go 的包管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2024/04/GoConcurrency/" >GoConcurrency</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2023 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/2023/12/RPC-with-CXX20-Coroutines/" >一种 C++20 协程下 RPC 服务框架的设计与实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2023/10/CXX20-Coroutines/" >C++20 协程原理</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2022 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/05</span><a class="archive-post-title" href= "/2022/10/Coroutines/" >C++20 协程探讨</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2021/10/InstallSwiftFormat/" >安装 SwiftFormat 工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2021/04/SshConfigNoSecret/" >SSH 免密登录配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2020/04/ChatServer/" >聊天室服务器设计与实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/HTMLPopWindow/" >HTML 实现自定义弹窗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/JsAndPyTransData/" >Js 与 Python 数据传输</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2020/03/bits-stdc-h/" >macOS 下的 bits/stdc++.h</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2020/02/GitHub-or-Gitee/" >GitHub or Gitee</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/2020/01/SwiftNotes/" >SwiftNotes</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="C/C++"><span class="iconfont-archer">&#xe606;</span>C/C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Coroutines"><span class="iconfont-archer">&#xe606;</span>Coroutines</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Domain"><span class="iconfont-archer">&#xe606;</span>Domain</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="GitHub Pages"><span class="iconfont-archer">&#xe606;</span>GitHub Pages</span>
+    
+        <span class="sidebar-tag-name" data-tags="GitHub"><span class="iconfont-archer">&#xe606;</span>GitHub</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gitee"><span class="iconfont-archer">&#xe606;</span>Gitee</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="包管理"><span class="iconfont-archer">&#xe606;</span>包管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
+    
+        <span class="sidebar-tag-name" data-tags="centOS"><span class="iconfont-archer">&#xe606;</span>centOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++20 Coroutines"><span class="iconfont-archer">&#xe606;</span>C++20 Coroutines</span>
+    
+        <span class="sidebar-tag-name" data-tags="RPC"><span class="iconfont-archer">&#xe606;</span>RPC</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
+    
+        <span class="sidebar-category-name" data-categories="Blog"><span class="iconfont-archer">&#xe60a;</span>Blog</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+        <span class="sidebar-category-name" data-categories="博客"><span class="iconfont-archer">&#xe60a;</span>博客</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Modnar Shen"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

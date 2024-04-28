@@ -13,9 +13,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
-    <meta name="author" content="Modnar">
+    <meta name="author" content="Modnar Shen">
     <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Modnar">
+    <meta name="copyright" content="Modnar Shen">
     
     <meta name="keywords" content="Modnar,Blog,Modnar Blog">
     
@@ -266,9 +266,9 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Hexo">Hexo</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "Domain">Domain</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Hexo">Hexo</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "GitHub Pages">GitHub Pages</a>
     
@@ -276,7 +276,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">618</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">574</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -400,26 +400,29 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>&#160; &#160; &#160; &#160; 在起初用 <em><strong>GitHub Pages</strong></em> 搭建博客页面之后，使用 <em><strong>GitHub</strong></em> 的学生优惠申请了免费的域名。在域名过期之后，又重新在 <strong>腾讯云</strong> 申请注册了新的域名。这里提供一种切换 <em><strong>GitHub Pages</strong></em> 域名的方案。</p>
-<h2 id="简要说明"><a href="#简要说明" class="headerlink" title="简要说明"></a>简要说明</h2><p>&#160; &#160; &#160; &#160; 这里假定已经完成了域名的申请、认证等工作，名下已经拥有正常可解析的域名。</p>
-<p>&#160; &#160; &#160; &#160; 下面的域名说明均是使用腾讯云提供的相关域名服务，腾讯云对域名的解析，目前是采用 <em><strong>DnsPod</strong></em> 来做的。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>&#160; &#160; &#160; &#160; 首先，打开 <em><strong>GitHub Pages</strong></em> 的资源仓库的 <em><strong>Setting</strong></em> 页面。</p>
+        <h2 id="问题描述"><a class="header-anchor" href="#问题描述"></a>问题描述</h2>
+<p>        在起初用 <em><strong>GitHub Pages</strong></em> 搭建博客页面之后，使用 <em><strong>GitHub</strong></em> 的学生优惠申请了免费的域名。在域名过期之后，又重新在 <strong>腾讯云</strong> 申请注册了新的域名。这里提供一种切换 <em><strong>GitHub Pages</strong></em> 域名的方案。</p>
+<h2 id="简要说明"><a class="header-anchor" href="#简要说明"></a>简要说明</h2>
+<p>        这里假定已经完成了域名的申请、认证等工作，名下已经拥有正常可解析的域名。</p>
+<p>        下面的域名说明均是使用腾讯云提供的相关域名服务，腾讯云对域名的解析，目前是采用 <em><strong>DnsPod</strong></em> 来做的。</p>
+<h2 id="解决方案"><a class="header-anchor" href="#解决方案"></a>解决方案</h2>
+<p>        首先，打开 <em><strong>GitHub Pages</strong></em> 的资源仓库的 <em><strong>Setting</strong></em> 页面。</p>
 <p><img src="Pic1.png" alt="GitHub Repo Settings"></p>
 <p><img src="Pic2.png" alt="GitHub Repo Settings"></p>
 <p><img src="Pic3.png" alt="GitHub Repo Settings"></p>
-<p>&#160; &#160; &#160; &#160; 然后，可以看到 <em>Your site is published at http://&lt;username&gt;.github.io</em> 这一行说明(上面截图中这里的文字说明有些问题)，就是说在未绑定到新域名时，你可以通过这个链接地址来访问自己的 <em><strong>GitHub Pages</strong></em> 。这时，就需要获取一下它的 <strong>IP地址</strong> 。在本地使用 <strong>ping</strong> 来得到它的IP:</p>
+<p>        然后，可以看到 <em>Your site is published at http://&lt;username&gt;.github.io</em> 这一行说明(上面截图中这里的文字说明有些问题)，就是说在未绑定到新域名时，你可以通过这个链接地址来访问自己的 <em><strong>GitHub Pages</strong></em> 。这时，就需要获取一下它的 <strong>IP地址</strong> 。在本地使用 <strong>ping</strong> 来得到它的IP:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ping https://&lt;username&gt;.github.io/</span><br></pre></td></tr></table></figure>
-
 <p><img src="Pic4.png" alt="ping target site"></p>
-<p>&#160; &#160; &#160; &#160; 拿到IP之后，就可以通过将这个值绑定到注册的域名上。 登录腾讯云，查看自己名下的域名是否解析正常。然后点击需要绑定的域名条目的 <strong>解析</strong> 入口。</p>
-<p>&#160; &#160; &#160; &#160; 按照下图正确填写相关内容，其中用红框标识的是需要注意的部分。</p>
+<p>        拿到IP之后，就可以通过将这个值绑定到注册的域名上。 登录腾讯云，查看自己名下的域名是否解析正常。然后点击需要绑定的域名条目的 <strong>解析</strong> 入口。</p>
+<p>        按照下图正确填写相关内容，其中用红框标识的是需要注意的部分。</p>
 <p><img src="Pic5.png" alt="Set Domain Config"></p>
 <p><img src="Pic6.png" alt="Set Domain Config"></p>
-<p>&#160; &#160; &#160; &#160; 此处需要注意的是，在 <em><strong>hexo</strong></em> 的 <code>source</code> 目录下的 <code>CNAME</code> 文件中的域名也要同步修改为新的域名: <code>www.domain</code>。</p>
-<p>&#160; &#160; &#160; &#160; 然后，在 <em><strong>GitHub Pages</strong></em> 的 <strong>Setting</strong> 处填写 <strong>Custom Domain</strong> 并点击保存，为了保证更安全的访问方式，你也可以勾选 <strong>Enforce HTTPS</strong> 。</p>
-<p>&#160; &#160; &#160; &#160; 在执行完上述流程之后，就可以使用自己申请的域名访问 <em><strong>GitHub Pages</strong></em> 了，在配置过程中，切换解析值可能需要一些时间，在确认配置等内容无误之后等待一会儿就好，一般10分钟之内即可生效。</p>
-<p>&#160; &#160; &#160; &#160; 你可以将自己的资源仓库的可见性设置为 <strong>Private</strong> ，这样除了你自己，其他人就无法看到资源的历史变更记录了。方便你修改、删除一些历史文章。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p>        此处需要注意的是，在 <em><strong>hexo</strong></em> 的 <code>source</code> 目录下的 <code>CNAME</code> 文件中的域名也要同步修改为新的域名: <code>www.domain</code>。</p>
+<p>        然后，在 <em><strong>GitHub Pages</strong></em> 的 <strong>Setting</strong> 处填写 <strong>Custom Domain</strong> 并点击保存，为了保证更安全的访问方式，你也可以勾选 <strong>Enforce HTTPS</strong> 。</p>
+<p>        在执行完上述流程之后，就可以使用自己申请的域名访问 <em><strong>GitHub Pages</strong></em> 了，在配置过程中，切换解析值可能需要一些时间，在确认配置等内容无误之后等待一会儿就好，一般10分钟之内即可生效。</p>
+<p>        你可以将自己的资源仓库的可见性设置为 <strong>Private</strong> ，这样除了你自己，其他人就无法看到资源的历史变更记录了。方便你修改、删除一些历史文章。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考"></a>参考</h2>
+<blockquote>
 <p><a href="https://segmentfault.com/a/1190000011203711" target="_blank" rel="noopener">https://segmentfault.com/a/1190000011203711</a></p>
 </blockquote>
 
@@ -427,7 +430,7 @@ height:50vh;
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者：<a href="https://tech.modoo.zone">Modnar</a>
+            <p>原文作者：<a href="https://tech.modoo.zone">Modnar Shen</a>
             <p>原文链接：<a href="https://tech.modoo.zone/2021/04/CombineDomainToGithubPages/">https://tech.modoo.zone/2021/04/CombineDomainToGithubPages/</a>
             <p>发表日期：<a href="https://tech.modoo.zone/2021/04/CombineDomainToGithubPages/">April 15th 2021, 5:11:00 pm</a>
             <p>更新日期：<a href="https://tech.modoo.zone/2021/04/CombineDomainToGithubPages/">August 2nd 2023, 4:00:17 pm</a>
@@ -697,9 +700,57 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 11
+        Total : 15
         </div>
         <!-- search  -->
         
@@ -709,6 +760,44 @@ top:50vh;
     
     
     
+    
+    <div class="archive-year"> 2024 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2024/04/GoPkgManagement/" >Go 的包管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2024/04/GoConcurrency/" >GoConcurrency</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2023 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/2023/12/RPC-with-CXX20-Coroutines/" >一种 C++20 协程下 RPC 服务框架的设计与实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2023/10/CXX20-Coroutines/" >C++20 协程原理</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2022 </div>
     <ul class="year-list">
@@ -739,12 +828,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/CombineDomainToGithubPages/" >为 GitHub Pages 绑定域名</a>
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2021/04/ManageHexoWithGit/" >使用 Git 来管理 Hexo 文章</a>
         </li>
     
     
@@ -793,37 +882,45 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="C/C++"><span class="iconfont-archer">&#xe606;</span>C/C++</span>
     
+        <span class="sidebar-tag-name" data-tags="Coroutines"><span class="iconfont-archer">&#xe606;</span>Coroutines</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
-    
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
-    
-        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
-    
-        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
-    
-        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
-    
-        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
-    
-        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
-    
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="Domain"><span class="iconfont-archer">&#xe606;</span>Domain</span>
     
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
         <span class="sidebar-tag-name" data-tags="GitHub Pages"><span class="iconfont-archer">&#xe606;</span>GitHub Pages</span>
-    
-        <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
-    
-        <span class="sidebar-tag-name" data-tags="centOS"><span class="iconfont-archer">&#xe606;</span>centOS</span>
     
         <span class="sidebar-tag-name" data-tags="GitHub"><span class="iconfont-archer">&#xe606;</span>GitHub</span>
     
         <span class="sidebar-tag-name" data-tags="Gitee"><span class="iconfont-archer">&#xe606;</span>Gitee</span>
     
-        <span class="sidebar-tag-name" data-tags="Coroutines"><span class="iconfont-archer">&#xe606;</span>Coroutines</span>
+        <span class="sidebar-tag-name" data-tags="HTML"><span class="iconfont-archer">&#xe606;</span>HTML</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="包管理"><span class="iconfont-archer">&#xe606;</span>包管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="macOS"><span class="iconfont-archer">&#xe606;</span>macOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSH"><span class="iconfont-archer">&#xe606;</span>SSH</span>
+    
+        <span class="sidebar-tag-name" data-tags="centOS"><span class="iconfont-archer">&#xe606;</span>centOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++20 Coroutines"><span class="iconfont-archer">&#xe606;</span>C++20 Coroutines</span>
+    
+        <span class="sidebar-tag-name" data-tags="RPC"><span class="iconfont-archer">&#xe606;</span>RPC</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -864,6 +961,8 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
     
+        <span class="sidebar-category-name" data-categories="博客"><span class="iconfont-archer">&#xe60a;</span>博客</span>
+    
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
     <div class="sidebar-categories-list"></div>
@@ -873,7 +972,7 @@ jsonContent:
     <script>
     var siteMeta = {
         root: "/",
-        author: "Modnar"
+        author: "Modnar Shen"
     }
 </script>
     <!-- CDN failover -->
