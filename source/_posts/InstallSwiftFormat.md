@@ -6,7 +6,7 @@ tags:
     - "Swift"
     - "macOS"
 categories:
-    -"Blog"
+    - "Blog"
 ---
 
 ## 说明
