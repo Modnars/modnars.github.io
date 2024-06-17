@@ -4,7 +4,7 @@ date: 2024-04-28 11:14:27
 abstract: Go 语言的并发机制简介
 tags:
     - Go
-    - 并发
+    - Concurrency
     - Goroutine
     - Channel
 categories:

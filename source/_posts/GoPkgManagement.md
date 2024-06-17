@@ -4,7 +4,7 @@ date: 2024-04-28 14:20:18
 abstract: 关于 Go 的包管理模式以及常见场景及命令
 tags:
     - Go
-    - 包管理
+    - PackageManagement
 categories:
     - Blog
 ---
